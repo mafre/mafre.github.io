@@ -2,7 +2,7 @@
   "name": "create",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mafre.github.io/build",
+  "homepage": "https://mafre.github.io",
   "dependencies": {
     "re-base": "^3.0.1",
     "react": "^15.5.4",
