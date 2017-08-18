@@ -1,20 +1,16 @@
 {
-  "name": "create",
+  "name": "mafre",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://mafre.github.io",
   "dependencies": {
-    "re-base": "^3.0.1",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
-  },
-  "devDependencies": {
-    "react-scripts": "1.0.6"
+    "next": "^3.0.6",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   }
 }
