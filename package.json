@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://mafre.github.io",
   "dependencies": {
-    "next": "^3.0.6",
+    "next": "^9.0.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
