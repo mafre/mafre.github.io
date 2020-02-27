@@ -1,16 +1,40 @@
 {
-  "name": "mafre",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://mafre.github.io",
-  "dependencies": {
-    "next": "^3.0.6",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
-  },
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
-  }
+	"name": "mafre",
+	"version": "0.1.0",
+	"private": true,
+	"homepage": "https://mafre.github.io",
+	"scripts": {
+		"start": "webpack-dev-server --hot",
+		"dev": "webpack-dev-server --open --config webpack.dev.ts",
+		"build": "webpack --mode production --config webpack.prod.ts"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.6.0",
+		"@babel/plugin-proposal-class-properties": "^7.5.5",
+		"@babel/plugin-proposal-decorators": "^7.6.0",
+		"@babel/preset-env": "^7.6.0",
+		"@babel/preset-react": "^7.0.0",
+		"@babel/preset-typescript": "^7.6.0",
+		"@types/react": "^16.9.23",
+		"@types/react-dom": "^16.9.5",
+		"babel-loader": "^8.0.6",
+		"fork-ts-checker-webpack-plugin": "^1.5.0",
+		"html-webpack-plugin": "^3.2.0",
+		"typescript": "^3.8.2",
+		"webpack": "^4.41.6",
+		"webpack-cli": "^3.3.11",
+		"webpack-dev-server": "^3.10.3"
+	},
+	"dependencies": {
+		"@hot-loader/react-dom": "^16.10.2",
+		"@types/html-webpack-plugin": "^3.2.2",
+		"@types/webpack": "^4.41.6",
+		"awesome-typescript-loader": "^5.2.1",
+		"core-js": "^3.2.1",
+		"react": "^16.9.0",
+		"react-dom": "^16.9.0",
+		"react-hot-loader": "^4.12.13",
+		"regenerator-runtime": "^0.13.3",
+		"ts-node": "^8.6.2"
+	}
 }
