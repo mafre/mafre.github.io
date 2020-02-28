@@ -1,5 +1,5 @@
-import * as webpack from 'webpack';
-import * as HtmlWebPackPlugin from 'html-webpack-plugin';
+import webpack from 'webpack';
+import HtmlWebPackPlugin from 'html-webpack-plugin';
 
 const htmlPlugin = new HtmlWebPackPlugin({
   	template: "./src/index.html"
