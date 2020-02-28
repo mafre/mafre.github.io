@@ -13,39 +13,27 @@ interface RocketInventoryData {}
 
 interface RocketInventoryVars {}
 
-const GET_ROCKET_INVENTORY = gql`
-	query getRocketInventory($year: Int!) {
-		testMessage(year: $year) {
-			id
-			model
-			year
-			stock
+const TEST = gql`
+	query test($id: String!) {
+		test(id: $id) {
+			result
 		}
 	}
 `;
 
 export default function Test() {
 	const { loading, data } = useQuery<RocketInventoryData, RocketInventoryVars>(
-		GET_ROCKET_INVENTORY,
-		{ variables: {} }
+		TEST,
+		{ variables: { id: "test" } }
 	);
+	console.log(data);
 	return (
 		<div>
 			<h3>Available Inventory</h3>
 			{loading ? (
 				<p>Loading ...</p>
 			) : (
-				<table>
-					<thead>
-						<tr>
-						<th>Model</th>
-						<th>Stock</th>
-						</tr>
-					</thead>
-					<tbody>
-
-					</tbody>
-				</table>
+				<div></div>
 			)}
 		</div>
 	);

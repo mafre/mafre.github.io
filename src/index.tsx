@@ -7,7 +7,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 const client = new ApolloClient({
-	uri: 'https://mafre-github-io.herokuapp.com',
+	uri: 'https://mafre-gql.herokuapp.com/',
 });
 
 const root = document.createElement('div')

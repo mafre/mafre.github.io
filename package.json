@@ -4,7 +4,7 @@
 	"private": true,
 	"homepage": "https://mafre.github.io",
 	"scripts": {
-		"dev": "webpack-dev-server --open --config webpack.dev.ts",
+		"start": "webpack-dev-server --open --config webpack.dev.ts",
 		"build": "webpack --mode production --config webpack.prod.ts"
 	},
 	"devDependencies": {
