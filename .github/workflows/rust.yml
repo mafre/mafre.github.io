@@ -2,9 +2,9 @@ name: Rust
 
 on:
   push:
-    branches: [ "build" ]
+    branches: [ "deploy" ]
   pull_request:
-    branches: [ "build" ]
+    branches: [ "deploy" ]
 
 env:
   CARGO_TERM_COLOR: always
