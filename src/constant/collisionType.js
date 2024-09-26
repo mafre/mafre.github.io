@@ -1,0 +1,8 @@
+export default {
+  DEFAULT: 0x0000,
+  WALL: 0x0001,
+  PLAYER: 0x0002,
+  PARTICLE: 0x0003,
+  ENEMY: 0x0004,
+  SUICA: 0x0005
+};
