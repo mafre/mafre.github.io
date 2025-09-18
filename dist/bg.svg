@@ -1,0 +1,75 @@
+<!-- Dark, low-contrast nature SVG designed to blur well. Focus anchored to the bottom. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Sky -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0b1520"/>
+      <stop offset="70%" stop-color="#0a121a"/>
+      <stop offset="100%" stop-color="#081019"/>
+    </linearGradient>
+
+    <!-- Far hills -->
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0d2331" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#0a1b27" stop-opacity="0.65"/>
+    </linearGradient>
+
+    <!-- Mid hills -->
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0b1e2b" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#0a1822" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Near silhouettes -->
+    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0a141c"/>
+      <stop offset="100%" stop-color="#070d13"/>
+    </linearGradient>
+
+    <!-- Water glow -->
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0b1822" />
+      <stop offset="70%" stop-color="#0a141c" />
+      <stop offset="100%" stop-color="#080f16" />
+    </linearGradient>
+
+    <!-- Gentle vignette for depth -->
+    <radialGradient id="vignette" cx="50%" cy="60%" r="70%">
+      <stop offset="55%" stop-color="#00000000"/>
+      <stop offset="100%" stop-color="#00000066"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1600" height="900" fill="url(#sky)"/>
+
+  <!-- Far mountain ridge -->
+  <path fill="url(#far)" d="
+    M0,520
+    C220,490 340,510 480,540
+    C650,575 820,520 980,500
+    C1150,480 1330,520 1600,560
+    L1600,900 L0,900 Z"/>
+
+  <!-- Mid mountain ridge -->
+  <path fill="url(#mid)" d="
+    M0,600
+    C180,560 320,600 470,640
+    C640,690 810,640 980,620
+    C1160,600 1380,650 1600,700
+    L1600,900 L0,900 Z"/>
+
+  <!-- Water -->
+  <rect x="0" y="690" width="1600" height="210" fill="url(#water)"/>
+
+  <!-- Near shore silhouettes -->
+  <path fill="url(#near)" d="
+    M0,750
+    C140,740 240,770 360,790
+    C520,815 720,800 900,785
+    C1120,770 1340,790 1600,820
+    L1600,900 L0,900 Z"/>
+
+  <!-- Vignette -->
+  <rect width="1600" height="900" fill="url(#vignette)"/>
+</svg>

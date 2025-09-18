@@ -1,0 +1,181 @@
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0f0f0f;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin: 0 auto;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+}
+
+.App {
+  font-family: "Courier Prime", monospace;
+  color: #dedede;
+  font-size: 0.7em;
+  display: grid;
+  grid-auto-flow: row;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  border: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.gap-y {
+  height: 3rem;
+}
+
+.content {
+  margin-top: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  border: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;   /* vertical scroll */
+  overflow-x: hidden; /* optional, prevent horizontal */
+}
+
+.clock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  row-gap: 0.8rem;
+  column-gap: 0.8rem;
+  align-items: start;
+  padding: 1rem;
+}
+
+.ephemeris {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress {
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.date-info {
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-input {
+  width: 50px;
+  font-size: 1.5em;
+}
+
+.date {
+  margin-bottom: 2rem;
+}
+
+.monthHeader {
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+/* Month header + highlight styling for improved visibility */
+.monthHeader.highlight {
+  color: #e64a19;
+}
+
+/* Week row layout within each month */
+.month .week {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  align-items: center;
+  column-gap: 0.4rem;
+}
+
+.day.highlight {
+  color: #e64a19;
+  font-weight: 600;
+}
+
+.weekNumber {
+  color: #717171;
+}
+
+.weekNumber.highlight {
+  color: #e64a19;
+}
+
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dayName {
+  color: #717171;
+}
+
+.currentDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e64a19;
+  cursor: pointer;
+}
+
+.currentWeekInfo {
+  font-weight: bold;
+}
+
+.bg-cover-bottom{ background: center bottom / cover no-repeat url('/bg.svg'); }
+
+.glass {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+
+  backdrop-filter: blur(22px) saturate(120%);
+  -webkit-backdrop-filter: blur(22px) saturate(120%);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
