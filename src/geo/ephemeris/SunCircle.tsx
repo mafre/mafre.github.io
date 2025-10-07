@@ -1,5 +1,5 @@
-import { DEFAULT_OPACITY, DEFAULT_RADIUS } from "../config";
-import type { IntervalRenderInfo } from "../time/IntervalRender";
+import { DEFAULT_OPACITY, DEFAULT_RADIUS } from '../../config';
+import type { IntervalRenderInfo } from '../../time/IntervalRender';
 
 export default function SunCircle(props: IntervalRenderInfo) {
 	const { now } = props;

@@ -1,21 +1,87 @@
-export const SECONDS_INTERVAL = 1000;
-export const MINUTE_MODIFIER = 60;
-export const MINUTES_INTERVAL = SECONDS_INTERVAL * MINUTE_MODIFIER;
-export const HOURS_INTERVAL = MINUTES_INTERVAL * 60;
-export const DAYS_INTERVAL = HOURS_INTERVAL * 24;
-export const WEEKS_INTERVAL = DAYS_INTERVAL * 7;
-export const MONTHS_INTERVAL = DAYS_INTERVAL * 30;
-export const YEARS_INTERVAL = DAYS_INTERVAL * 365;
+export const SECOND = 1000;
+export const MINUTE = 60 * SECOND;
+export const HOUR = 60 * MINUTE;
+export const DAY = 24 * HOUR;
+export const WEEK = 7 * DAY;
+export const MONTH = 30 * DAY; // simplified month length
+export const YEAR = 365 * DAY; // simplified year length
+export const DECADE = 10 * YEAR;
+export const CENTURY = 10 * DECADE;
+export const MILLENNIUM = 10 * CENTURY;
+export const EPOCH = 10 * MILLENNIUM;
+export const ERA = 10 * EPOCH;
+export const AGE = 10 * ERA;
+export const EON = 10 * AGE;
+export const AEON = 10 * EON;
+export const COSMIC = 10 * AEON;
+export const UNIVERSE = 10 * COSMIC;
+export const MULTIVERSE = 10 * UNIVERSE;
+export const OMNIVERSE = 10 * MULTIVERSE;
+export const META = 10 * OMNIVERSE;
+export const INFINITY = 10 * META;
+export const ETERNITY = 10 * INFINITY;
+export const TIMELESS = 10 * ETERNITY;
+export const TRANSCENDENCE = 10 * TIMELESS;
+export const ABSOLUTE = 10 * TRANSCENDENCE;
+export const ULTIMATE = 10 * ABSOLUTE;
+export const FINALITY = 10 * ULTIMATE;
+export const INFINITY_PLUS_ONE = 10 * FINALITY;
+export const BEYOND_INFINITY = 10 * INFINITY_PLUS_ONE;
+export const BEYOND_TIME = 10 * BEYOND_INFINITY;
+export const BEYOND_SPACE = 10 * BEYOND_TIME;
+export const BEYOND_EXISTENCE = 10 * BEYOND_SPACE;
+export const BEYOND_REALITY = 10 * BEYOND_EXISTENCE;
+export const BEYOND_DIMENSIONS = 10 * BEYOND_REALITY;
+export const BEYOND_UNDERSTANDING = 10 * BEYOND_DIMENSIONS;
+export const BEYOND_COMPREHENSION = 10 * BEYOND_UNDERSTANDING;
+export const BEYOND_IMAGINATION = 10 * BEYOND_COMPREHENSION;
+export const BEYOND_FANTASY = 10 * BEYOND_IMAGINATION;
+export const BEYOND_DREAMS = 10 * BEYOND_FANTASY;
+export const BEYOND_NIGHTMARES = 10 * BEYOND_DREAMS;
+export const timeUnit = {
+  SECOND,
+  MINUTE,
+  HOUR,
+  DAY,
+  WEEK,
+  MONTH,
+  YEAR,
+  DECADE,
+  CENTURY,
+  MILLENNIUM,
+  EPOCH,
+  ERA,
+  AGE,
+  EON,
+  AEON,
+  COSMIC,
+  UNIVERSE,
+  MULTIVERSE,
+  OMNIVERSE,
+  META,
+  INFINITY,
+  ETERNITY,
+  TIMELESS,
+  TRANSCENDENCE,
+  ABSOLUTE,
+  ULTIMATE,
+  FINALITY,
+  INFINITY_PLUS_ONE,
+  BEYOND_INFINITY,
+  BEYOND_TIME,
+  BEYOND_SPACE,
+  BEYOND_EXISTENCE,
+  BEYOND_REALITY,
+  BEYOND_DIMENSIONS,
+  BEYOND_UNDERSTANDING,
+  BEYOND_COMPREHENSION,
+  BEYOND_IMAGINATION,
+  BEYOND_FANTASY,
+  BEYOND_DREAMS,
+  BEYOND_NIGHTMARES,
+};
 
-export const GAME_START = new Date(2024, 0, 1, 6, 0, 0);
+export const GAME_START = new Date(0, 0, 0, 0, 0, 0);
 export const GAME_START_TIMESTAMP = GAME_START.getTime();
 
-export const TICKS_PER_SECOND = 20;
-export const MS_PER_TICK = 1000 / TICKS_PER_SECOND;
-export const TICK_INTERVAL = MS_PER_TICK;
-export const MAX_TICKS_PER_UPDATE = 5; // to avoid spiral of death
 
-export const SAVE_VERSION = 6; // increment when save format changes
-
-// For offline progress calculation, limit to 1 hour max
-export const MAX_OFFLINE_MS = 60 * 60 * 1000;

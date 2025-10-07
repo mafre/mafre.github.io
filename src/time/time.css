@@ -1,0 +1,107 @@
+.clock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  row-gap: 0.8rem;
+  column-gap: 0.8rem;
+  align-items: start;
+  padding: 1rem;
+}
+
+.ephemeris {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-clock {
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.date-info {
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-input {
+  width: 50px;
+  font-size: 1.5em;
+}
+
+.date {
+  margin-bottom: 2rem;
+}
+
+.monthHeader {
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+/* Month header + highlight styling for improved visibility */
+.monthHeader.highlight {
+  color: #e64a19;
+}
+
+/* Week row layout within each month */
+.month .week {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  align-items: center;
+  column-gap: 0.4rem;
+}
+
+.day.highlight {
+  color: #e64a19;
+  font-weight: 600;
+}
+
+.weekNumber {
+  color: #717171;
+}
+
+.weekNumber.highlight {
+  color: #e64a19;
+}
+
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dayName {
+  color: #717171;
+}
+
+.currentDay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e64a19;
+  cursor: pointer;
+}
+
+.currentWeekInfo {
+  font-weight: bold;
+}

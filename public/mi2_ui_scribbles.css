@@ -1,0 +1,16 @@
+.mi2-scribble{display:inline-block;width:64px;height:64px;background-image:url('mi2_ui_scribbles.png');background-repeat:no-repeat;image-rendering: pixelated;background-size:320px 192px;}
+.mi2-scribble-0{background-position:0px 0px;}
+.mi2-scribble-1{background-position:-64px 0px;}
+.mi2-scribble-2{background-position:-128px 0px;}
+.mi2-scribble-3{background-position:-192px 0px;}
+.mi2-scribble-4{background-position:-256px 0px;}
+.mi2-scribble-5{background-position:0px -64px;}
+.mi2-scribble-6{background-position:-64px -64px;}
+.mi2-scribble-7{background-position:-128px -64px;}
+.mi2-scribble-8{background-position:-192px -64px;}
+.mi2-scribble-9{background-position:-256px -64px;}
+.mi2-scribble-10{background-position:0px -128px;}
+.mi2-scribble-11{background-position:-64px -128px;}
+.mi2-scribble-12{background-position:-128px -128px;}
+.mi2-scribble-13{background-position:-192px -128px;}
+.mi2-scribble-14{background-position:-256px -128px;}

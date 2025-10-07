@@ -1,5 +1,5 @@
-import CanvasSurface from "../components/CanvasSurface";
-import type { SunPoint } from "./projectSunToView";
+import CanvasSurface from '../../time/CanvasSurface';
+import type { SunPoint } from './projectSunToView';
 
 export default function Sun(sunPoint: SunPoint) {
 

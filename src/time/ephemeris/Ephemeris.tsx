@@ -1,10 +1,10 @@
-import Analemma from "./Analemma";
-import SunCircle from "./SunCircle";
-import Container from "../components/Container";
-import SunCurve from "../ephemeris/SunCurve";
-import IntervalRender from "../time/IntervalRender";
+import Analemma from "../../geo/ephemeris/Analemma";
+import SunCircle from "../../geo/ephemeris/SunCircle";
+import SunCurve from "../../geo/ephemeris/SunCurve";
+import Container from "../Container";
+import { eachTwoMinutes } from "../format";
+import IntervalRender from "../IntervalRender";
 import MoonPhase from "./MoonPhase";
-import { eachTwoMinutes } from "../time/format";
 
 export default function Ephemeris() {
 	return <div className="ephemeris">

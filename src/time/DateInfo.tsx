@@ -1,4 +1,4 @@
-import { MONTH_NAMES } from "./format";
+import { MONTH_NAMES } from './format';
 
 const calculateTimeString = (d: Date) => {
 	const h = d.getHours().toString().padStart(2, '0');
@@ -9,10 +9,10 @@ const calculateTimeString = (d: Date) => {
 
 const calculateDateString = (d: Date) => {
 	const y = d.getFullYear();
-	const monthName = MONTH_NAMES[d.getMonth()] || "";
+	const monthName = MONTH_NAMES[d.getMonth()] || '';
 	const day = d.getDate().toString().padStart(2, '0');
 	return `${day} ${monthName} ${y}`;
-}
+};
 
 /*
 const calculateWeekInfo = (d: Date) => {
@@ -25,11 +25,13 @@ const calculateWeekInfo = (d: Date) => {
 }
 */
 
-export default function DateInfo(props: {now: Date}) {
+export default function DateInfo(props: { now: Date }) {
 	const { now } = props;
 
-	return <div className="date-info">
-		<div>{calculateTimeString(now)}</div>
-		<div>{calculateDateString(now)}</div>
-	</div>
+	return (
+		<div className="date-info">
+			<div>{calculateTimeString(now)}</div>
+			<div>{calculateDateString(now)}</div>
+		</div>
+	);
 }

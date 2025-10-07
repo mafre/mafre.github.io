@@ -60,7 +60,7 @@ export const TextInput: React.FC<TextInputProps> = ({
   return (
     <div className={`flex flex-col gap-1 ${disabled ? 'opacity-60' : ''}`.trim()}>
       {label && (
-        <label htmlFor={id} className="font-medium text-neutral-300">
+        <label htmlFor={id}>
           {label}
         </label>
       )}

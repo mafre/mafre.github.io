@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import TimeUtils from '../time/TimeUtils';
+import TimeUtils from '../../time/TimeUtils';
 
 interface AnalemmaPoint {
   day: number; // day-of-year

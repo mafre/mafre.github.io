@@ -1,1 +1,74 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
+
+/* Custom font: Old Wizard */
+@font-face {
+  font-family: 'Old Wizard';
+  src: url('/OldWizard.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@layer components {
+  /* COMPONENTS: plain CSS, no @apply of custom classes */
+  .ui-parchment {
+    background: radial-gradient(120% 120% at 10% 0%, #e7d8b1 0%, #d7c39a 65%, #6c4b2a 120%);
+    color: #1a1a1a;
+    border: 1px solid #000;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,.25),
+                inset 0 -2px 0 rgba(0,0,0,.35),
+                0 2px 0 rgba(0,0,0,.6);
+    border-radius: .75rem;
+  }
+
+  .ui-parchment .light {
+	color: #3d2f1c;
+	background: rgba(255, 255, 255, 0.6);
+  }
+
+  .ui-verbbar {
+    background: linear-gradient(180deg, #1f4a7f 0%, #0f1b2d 100%);
+    border-top: 2px solid #000;
+    color: #e2e8f0;
+    text-shadow: 0 1px 0 #000;
+    font-family: "Press Start 2P", ui-monospace, monospace;
+  }
+
+  /* UTILITIES-ONLY @apply is OK */
+  .ui-button {
+	color: #000;
+    border: 1px solid #000;
+    line-height: 1.2;
+    background: radial-gradient(120% 120% at 10% 0%, #e7d8b1 0%, #d7c39a 65%, #6c4b2a 120%);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,.25),
+                inset 0 -2px 0 rgba(0,0,0,.35),
+                0 2px 0 rgba(0,0,0,.6);
+  }
+
+  .primary {
+	background: linear-gradient(180deg, #1f4a7f 0%, #0f1b2d 100%);
+	color: #e2e8f0;
+	text-shadow: 0 1px 0 #000;
+  }
+
+  .pixel-grid { image-rendering: pixelated; }
+
+	/* CRT scanline overlay */
+	.crt::after {
+		content: '';
+		position: fixed; inset: 0;
+		pointer-events: none;
+		background: repeating-linear-gradient(
+		to bottom,
+		rgba(0,0,0,0.05) 0px,
+		rgba(0,0,0,0.05) 1px,
+		transparent 2px,
+		transparent 3px
+		);
+		mix-blend-mode: multiply;
+	}
+}

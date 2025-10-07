@@ -1,5 +1,5 @@
-import { computeMoonPhase } from '../ephemeris/getMoonPhase';
-import type { IntervalRenderInfo } from '../time/IntervalRender';
+import type { IntervalRenderInfo } from '../../time/IntervalRender';
+import { computeMoonPhase } from './getMoonPhase';
 
 export default function MoonPhase(props: IntervalRenderInfo) {
   const { now } = props;

@@ -1,7 +1,7 @@
-import React, { useMemo } from "react";
-import TimeUtils from "../time/TimeUtils";
-import type { IntervalRenderInfo } from "../time/IntervalRender";
-import { DEFAULT_OPACITY, DEFAULT_SVG_HEIGHT, DEFAULT_SVG_WIDTH } from "../config";
+import React, { useMemo } from 'react';
+import TimeUtils from '../../time/TimeUtils';
+import type { IntervalRenderInfo } from '../../time/IntervalRender';
+import { DEFAULT_OPACITY, DEFAULT_SVG_HEIGHT, DEFAULT_SVG_WIDTH } from '../../config';
 
 export default function SunCurve(info: IntervalRenderInfo) {
   const { now } = info;

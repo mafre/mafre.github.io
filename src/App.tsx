@@ -1,32 +1,23 @@
 import './App.css';
-import Calendar from './calendar/Calendar';
-import Game from './game/Game';
-import DateInfo from './time/DateInfo';
-import { eachSecond } from './time/format';
-import IntervalRender from './time/IntervalRender';
+import Game from './Game';
+import { GameDataProvider } from './game/GameData';
+import GameEngine from './game/GameEngine';
+import Stats from './game/Stats';
+import TimeSpeedControl from './game/TimeSpeedControl';
 
 export default function App(){
-	const pathname = window.location.pathname;
-	if (pathname === '/game') {
-		return (
-			<div className="App bg-cover-bottom" style={{'--bg-url': "url('/bg.png')"} as React.CSSProperties}>
-				<div className="content">
-					<Game />
-				</div>
-			</div>
-		);
-	}
 
 	return (
-		<div className="App bg-cover-bottom" style={{'--bg-url': "url('/bg.png')"} as React.CSSProperties}>
-			<div className="content">
-				<IntervalRender interval={eachSecond} immediate={true}>
-					{(info) => <>
-						<DateInfo now={info.now} />
-					</>}
-				</IntervalRender>
-				<Calendar />
-			</div>
+		<div className="app bg-cover-bottom">
+			<GameDataProvider>
+				<div className="w-64 p-4 text-base flex flex-col gap-4">
+					<TimeSpeedControl />
+					<Stats />
+				</div>
+				<GameEngine />
+				<Game />
+			</GameDataProvider>
 		</div>
 	);
 }
+
