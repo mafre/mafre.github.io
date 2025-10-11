@@ -1,7 +1,7 @@
-import { DEFAULT_OPACITY, DEFAULT_SVG_WIDTH } from '../config';
-import { useGameData } from './GameData';
-import { TIME_UNIT_ORDER } from './timeLogic';
+import { DEFAULT_OPACITY } from '../config';
 import { CLOCK_HAND_COLORS } from './clockHandColors';
+import { useGameData } from './GameData';
+import { TIME_UNIT_ORDER, getSecondFraction } from './timeLogic';
 
 /**
  * Clock renders either real wall-clock time (if now provided) or derives a virtual
@@ -10,16 +10,16 @@ import { CLOCK_HAND_COLORS } from './clockHandColors';
  */
 export default function Clock() {
 	const { data } = useGameData();
-	const clockRadius = DEFAULT_SVG_WIDTH;
+	const clockRadius = 45;
 
-	// Extract resource remainders (each resource represents remainder after conversion to next tier)
-	const ms = data.resources['millisecond'] ?? 0; // 0-999
-	const sec = data.resources['second'] ?? 0; // 0-59
+	// Extract resource remainders (no millisecond resource anymore)
+	// Fractional second derived from timeLogic's internal accumulator
+	const fractionalSecond = getSecondFraction(data);
+	const sec = data.resources['second'] ?? 0; // 0-59 accumulated whole seconds remainder
 	const min = data.resources['minute'] ?? 0; // 0-59
 	const hr = data.resources['hour'] ?? 0;   // 0-23 (remainder before day conversion)
 
 	// Smooth fractional parts
-	const fractionalSecond = ms / 1000; // 0..1
 	const secondTotal = sec + fractionalSecond; // 0..60
 	const minuteTotal = min + secondTotal / 60; // 0..60
 	const hourTotal = (hr % 12) + minuteTotal / 60; // 0..12
@@ -29,9 +29,7 @@ export default function Clock() {
 	const minuteAngle = (minuteTotal / 60) * 360;
 	const hourAngle = (hourTotal / 12) * 360;
 
-	// Lengths
-	const secondLen = clockRadius * 0.9;
-	const minuteLen = clockRadius * 0.75;
+	// Base hour length still used to proportion extra higher-tier hands (image hands replace core ones)
 	const hourLen = clockRadius * 0.6;
 
 	// Extra higher-tier unit hands (day, week, month, year ...)
@@ -71,6 +69,15 @@ export default function Clock() {
 
 	return (
 		<>
+			<image
+				href="/clock_bg.png"
+				width={256}
+				height={256}
+				x={-128}
+				y={-128}
+				preserveAspectRatio="xMidYMid meet"
+				style={{ pointerEvents: 'none' }}
+			/>
 			{/* Tick marks */}
 			{[...Array(12)].map((_, i) => {
 				const angle = i * 30 * (Math.PI / 180);
@@ -107,35 +114,48 @@ export default function Clock() {
 				);
 			})}
 
-			{/* Hour hand */}
-			<line
-				x1={0} y1={0}
-				x2={hourLen * Math.cos((hourAngle - 90) * (Math.PI / 180))}
-				y2={hourLen * Math.sin((hourAngle - 90) * (Math.PI / 180))}
-				stroke="#000"
-				strokeWidth={7}
-				strokeLinecap="round"
+			{/* Image-based hour, minute, second hands. Assumes images are oriented pointing up (12 o'clock). */}
+			<image
+				href="/hour.png"
+				width={clockRadius * 2}
+				height={clockRadius * 2}
+				x={-clockRadius}
+				y={-clockRadius}
+				preserveAspectRatio="xMidYMid meet"
+				transform={`rotate(${hourAngle})`}
+				style={{ pointerEvents: 'none' }}
 			/>
-			{/* Minute hand */}
-			<line
-				x1={0} y1={0}
-				x2={minuteLen * Math.cos((minuteAngle - 90) * (Math.PI / 180))}
-				y2={minuteLen * Math.sin((minuteAngle - 90) * (Math.PI / 180))}
-				stroke="#000"
-				strokeWidth={5}
-				strokeLinecap="round"
+			<image
+				href="/minute.png"
+				width={clockRadius * 2}
+				height={clockRadius * 2}
+				x={-clockRadius}
+				y={-clockRadius}
+				preserveAspectRatio="xMidYMid meet"
+				transform={`rotate(${minuteAngle})`}
+				style={{ pointerEvents: 'none' }}
 			/>
-			{/* Second hand */}
-			<line
-				x1={0} y1={0}
-				x2={secondLen * Math.cos((secondAngle - 90) * (Math.PI / 180))}
-				y2={secondLen * Math.sin((secondAngle - 90) * (Math.PI / 180))}
-				stroke="#e64a19"
-				strokeWidth={3}
-				strokeLinecap="round"
+			<image
+				href="/second.png"
+				width={clockRadius * 2}
+				height={clockRadius * 2}
+				x={-clockRadius}
+				y={-clockRadius}
+				preserveAspectRatio="xMidYMid meet"
+				transform={`rotate(${secondAngle})`}
+				style={{ pointerEvents: 'none' }}
 			/>
 			{extraHands}
-			<circle cx={0} cy={0} r={5} fill="#000" />
+			{/* Center cap image */}
+			<image
+				href="/center.png"
+				width={10}
+				height={10}
+				x={-5}
+				y={-5}
+				preserveAspectRatio="xMidYMid meet"
+				style={{ pointerEvents: 'none' }}
+			/>
 		</>
 	);
 }

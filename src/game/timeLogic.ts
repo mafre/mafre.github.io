@@ -10,9 +10,15 @@ export interface AdvanceOptions {
 // Ordered list of time unit tiers (keep in sync with GameEngine & level derivation)
 export const TIME_UNIT_ORDER = ['second','minute','hour','day','week','month','year'];
 
+// Note: fractional milliseconds toward next second are stored per GameData instance (secondCarryMs)
+
+/** Return current fractional part of the ongoing second (0 <= f < 1) for a GameData instance. */
+export function getSecondFraction(gd: GameData) {
+  return (gd.secondCarryMs ?? 0) / SECOND;
+}
+
 // Upgrade ladder definition
 const LADDER: Array<{ threshold: number; from: string; to: string; cost: number }> = [
-  { threshold: SECOND, from: 'millisecond', to: 'second', cost: 1000 },
   { threshold: MINUTE, from: 'second', to: 'minute', cost: 60 },
   { threshold: HOUR, from: 'minute', to: 'hour', cost: 60 },
   { threshold: DAY, from: 'hour', to: 'day', cost: 24 },
@@ -29,16 +35,22 @@ export function advanceGameTime(gd: GameData, elapsedTime: number, opts: Advance
   const abilityDefs = opts.abilityDefs ?? ABILITY_DEFS;
   let next = gd;
 
-  // Add base milliseconds since last tick, scaled by base timeSpeed (abilities applied later for upgrades)
+  // Advance elapsed time and directly accumulate whole seconds (drop milliseconds as a resource)
   const prevMs = gd.elapsedTime;
   const newMs = elapsedTime;
-  const rawDelta = newMs - prevMs;
+  let rawDelta = newMs - prevMs;
+  if (rawDelta < 0) rawDelta = 0;
   if (rawDelta > 0) {
-    const sped = Math.floor(rawDelta * gd.timeSpeed);
-    if (sped > 0) {
-      next = next.setTime(newMs).addResource('millisecond', sped);
-    } else {
-      next = next.setTime(newMs); // still advance stored elapsedTime
+    next = next.setTime(newMs);
+    const scaled = rawDelta * gd.timeSpeed; // apply base time speed before abilities
+    let carry = next.secondCarryMs + scaled;
+    const wholeSeconds = Math.floor(carry / SECOND);
+    if (wholeSeconds > 0) {
+      carry -= wholeSeconds * SECOND;
+      next = next.addResource('second', wholeSeconds);
+    }
+    if (carry !== next.secondCarryMs) {
+      next = next.withPatch({ secondCarryMs: carry });
     }
   }
 

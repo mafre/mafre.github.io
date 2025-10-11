@@ -1,18 +1,17 @@
 import Clock from "./game/Clock";
-import { Modal } from "./game/Modal";
+import TopMenu from "./game/TopMenu";
 import Container from "./time/Container";
 
 export default function Game() {
   return <div className="game">
     <div className="header">
+      <TopMenu />
     </div>
     <div className="content">
       <div className="flex justify-center">
-        <Modal>
-            <Container svgWidth={256} svgHeight={256} >
-              <Clock />
-            </Container>
-          </Modal>
+        <Container>
+          <Clock />
+        </Container>
       </div>
     </div>
     <div className="footer">

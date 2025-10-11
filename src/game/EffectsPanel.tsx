@@ -25,24 +25,24 @@ export default function EffectsPanel() {
   }, [data]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex-1 flex flex-col gap-2">
       <Modal>
+      <div className="w-64">
         <div className="flex justify-between"><span>Base Speed</span><span >{data.timeSpeed.toFixed(2)}</span></div>
         <div className="flex justify-between"><span >Ability Bonus</span><span >+{abilityBonus.toFixed(2)}</span></div>
         <div className="flex justify-between mt-1 border-t border-zinc-700 pt-1"><span  >Total</span><span >{effective.toFixed(2)}</span></div>
+        </div>
       </Modal>
       <Modal>
         {contributions.length === 0 && (
-          <div className="text-[11px] italic opacity-60">No abilities purchased yet.</div>
+          <div className="italic opacity-60">No abilities purchased yet.</div>
         )}
         {contributions.map(c => (
           <div key={c.def.id} className="text-left">
-            <div className="flex-1">
+            <div className="flex-1 flex flex-row">
               <div >{c.def.name}</div>
-              <div className="font-normal">{c.def.description}</div>
-            </div>
-            <div className="flex flex-col items-end">
-              <span className={c.active ? 'text-blue' : 'text-zinc-500'}>{c.active ? `+${c.add}` : 'inactive'}</span>
+              <div className="flex-1"/>
+              <span>{c.active ? `+${c.add}` : '0'}</span>
             </div>
           </div>
         ))}

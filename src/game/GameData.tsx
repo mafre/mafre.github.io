@@ -10,6 +10,7 @@ export class GameData {
   readonly timeSpeed: number;
   readonly purchasedAbilities: string[];
   readonly totals: Record<string, number>;
+  readonly secondCarryMs: number; // fractional ms carried toward next whole second
 
   constructor(init?: Partial<GameData>) {
     const created = init?.createdAt ?? Date.now();
@@ -20,6 +21,7 @@ export class GameData {
     this.elapsedTime = init?.elapsedTime ?? 0;
     this.timeSpeed = init?.timeSpeed ?? 1;
     this.purchasedAbilities = [...(init?.purchasedAbilities ?? [])];
+  this.secondCarryMs = (init as any)?.secondCarryMs ?? 0;
     // Ensure totals never below current resources (migration / consistency)
     const totalsRaw: Record<string, number> = { ...(init as any)?.totals ?? {} };
     for (const [k, v] of Object.entries(this.resources)) {
@@ -38,6 +40,7 @@ export class GameData {
       timeSpeed: this.timeSpeed,
       purchasedAbilities: this.purchasedAbilities,
       totals: this.totals,
+      secondCarryMs: this.secondCarryMs,
       ...p,
     });
   }
@@ -124,6 +127,7 @@ export class GameData {
       timeSpeed: this.timeSpeed,
       purchasedAbilities: this.purchasedAbilities,
       totals: this.totals,
+      secondCarryMs: this.secondCarryMs,
     };
   }
     hasAbility(id: string) { return this.purchasedAbilities.includes(id); }

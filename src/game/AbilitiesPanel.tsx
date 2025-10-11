@@ -1,6 +1,7 @@
 import { Modal } from './Modal';
 import { useGameData } from './GameData';
 import { ABILITY_DEFS, type AbilityDef } from './abilities';
+import { GameButton } from './GameButton';
 
 interface AbilityRowProps {
   def: AbilityDef;
@@ -16,14 +17,12 @@ function AbilityRow({ def, owned, active, canPurchase, onPurchase }: AbilityRowP
       <div className="flex items-center justify-between gap-2">
         <span >{def.name}</span>
         {!owned && (
-          <button
-            className="px-1 py-1 rounded ui-button primary"
-            disabled={!canPurchase}
+          <GameButton
+
             onClick={onPurchase}
-            title={canPurchase ? 'Purchase ability' : 'Locked'}
           >
-            Buy
-          </button>
+            {canPurchase ? 'Buy' : 'Locked'}
+          </GameButton>
         )}
         {owned && (
           <span className={`px-2 py-0.5 rounded ${active ? 'bg-emerald-700/70 text-emerald-100' : 'bg-zinc-700/70 text-zinc-100'}`}>{active ? 'Active' : 'Inactive'}</span>
@@ -49,6 +48,10 @@ export default function AbilitiesPanel() {
         const owned = data.hasAbility(ability.id);
         const active = owned && (!ability.condition || ability.condition(data));
         const canPurchase = !locked && !owned; // placeholder (add cost logic later)
+
+        if (owned)
+          return null;
+
         return (
           <AbilityRow
             key={ability.id}

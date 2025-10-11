@@ -26,7 +26,7 @@ export default function GameClock() {
   const clock = `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 
   return (
-    <div className="text-center font-size-xl">
+    <div className="text-left font-size-xl">
       <span>{clock}</span>
     </div>
   );

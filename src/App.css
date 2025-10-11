@@ -6,6 +6,32 @@ body {
   color: #000000;
 }
 
+/* Fade in/out animation for periodic progress notification */
+@keyframes progressFade {
+  0% { opacity: 0; transform: translate(-50%, 8px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  90% { opacity: 1; transform: translate(-50%, -4px); }
+  100% { opacity: 0; transform: translate(-50%, -12px); }
+}
+
+.progress-notification {
+  position: fixed;
+  bottom: 56px; /* a bit above bottom so it doesn't clash with footer */
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0;
+  animation: progressFade 1s linear forwards;
+  font-family: var(--font-oldwizard);
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
 .app {
   width: 100vw;
   height: 100vh;
@@ -24,7 +50,7 @@ body {
 
 .header  { grid-area: header; padding: 8px }
 .content { grid-area: content; }
-.footer  { grid-area: footer; }
+.footer  { grid-area: footer; display: flex; justify-content: center; align-items: center; padding: 0 8px; gap: 8px; }
 
 .grid-template-columns-3 {
   display: grid;
@@ -34,6 +60,8 @@ body {
 .bg-cover-bottom{ background: center bottom / cover no-repeat url('/bg.png'); }
 
 .bg-intro{ background: center / cover url('/bg1.png'); }
+
+.clock-bg{ background: center bottom / cover no-repeat url('/clock_bg.png'); }
 
 .glass {
   background: rgba(255, 255, 255, 0.02);

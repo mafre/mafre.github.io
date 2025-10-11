@@ -9,7 +9,7 @@ const useTimer = (initialState = 0) => {
     const startTime = Date.now() - elapsedTime;
     countRef.current = setInterval(() => {
       setElapsedTime(Date.now() - startTime);
-    }, 10);
+    }, 200);
     setIsRunning(true);
   }
 
