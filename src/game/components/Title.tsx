@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import type { OrnamentCSSVars } from '../types/ornament';
 import { Frame } from './Frame';
 
 export interface TitleProps {
@@ -6,12 +7,13 @@ export interface TitleProps {
 }
 
 export function Title({ children }: TitleProps) {
+	let ornamentY = useMemo(() => Math.floor(Math.random() * 4), []);
 	return (
 		<div className="p-2">
 			<Frame
 				mode="dark"
 				body={
-					<div className="modal-header">
+					<div style={{ '--ornament-y': ornamentY } as OrnamentCSSVars} className="modal-header">
 						{children}
 					</div>
 				}

@@ -328,10 +328,12 @@ body {
 	font-size: medium;
 	text-align: center;
 	line-height: 1.2;
-	margin-top: 4px;
+	--ornament-x: 0;
+	--ornament-y: 0;
+	margin-top: 8px;
 }
 
-.modal-header-disabled::after {
+.modal-header::after {
 	content: '';
 	/* Render the ornament directly below the title text */
 	display: block;
