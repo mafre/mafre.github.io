@@ -1,8 +1,7 @@
-
 import { useEffect, useRef } from 'react';
 import { useGameData } from './GameData';
-import { ABILITY_DEFS } from './abilities';
-import { advanceGameTime } from './timeLogic';
+import { ABILITY_DEFS } from './utils/abilities';
+import { advanceGameTime } from './utils/timeLogic';
 
 export default function GameEngine() {
 	const { update } = useGameData();
@@ -27,7 +26,7 @@ export default function GameEngine() {
 			const nextElapsed = lastElapsedRef.current + realDelta;
 			const delta = realDelta;
 			if (delta > 0) {
-				update(gd => advanceGameTime(gd, gd.elapsedTime + delta, { abilityDefs: ABILITY_DEFS }));
+				update((gd) => advanceGameTime(gd, gd.elapsedTime + delta, { abilityDefs: ABILITY_DEFS }));
 				lastElapsedRef.current = nextElapsed;
 			}
 

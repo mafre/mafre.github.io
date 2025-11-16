@@ -67,3 +67,13 @@ export default tseslint.config([
   },
 ])
 ```
+
+### Clockwork Gear Train
+
+The component `GameClockwork` constructs a simple illustrative clock gear train using `GearFactory` helpers. Gear pairs are created with `createExplicitMesh` (for meshing gears with defined tooth counts) and `createCoaxialPair` (for wheel + pinion sharing an axle). The current setup approximates a traditional mechanical clock reduction:
+
+Barrel(80T) -> CenterPinion(10T) coax CenterWheel(64T) -> ThirdPinion(8T) coax ThirdWheel(60T) -> FourthPinion(8T) coax FourthWheel(75T) -> EscapePinion(7T) coax EscapeWheel(30T)
+
+Each arrow denotes a mesh connection; coaxial pairs rotate together. The barrel is animated at a slow constant rate and incremental rotation deltas propagate through the train via `Clockwork.propagateDelta`.
+
+You can tweak tooth counts or pitch values in `src/game/clockwork/GameClockwork.tsx` to explore different gear ratios or visual arrangements.

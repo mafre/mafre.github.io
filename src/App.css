@@ -1,117 +1,501 @@
 body {
-  color-scheme: dark;
-  --font-oldwizard: 'Old Wizard', monospace;
-  font-family: var(--font-oldwizard);
-  font-size: x-large;
-  color: #000000;
+	color-scheme: dark;
+	--font-oldwizard: 'Old Wizard', monospace;
+	font-family: var(--font-oldwizard);
+	font-size: x-large;
+	color: #000000;
+	scale: 1;
+}
+
+.frame-wrapper {
+	position: relative;
+	display: flex;
+}
+
+.frame {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border-image-repeat: repeat;
+	image-rendering: pixelated;
+	line-height: 12px;
+	pointer-events: none;
+	border-width: 11px;
+	z-index: 2;
+}
+
+.frame-content {
+	flex: 1;
+	border: none;
+	margin: 4px;
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	justify-content: center;
+	border-image-repeat: repeat;
+	image-rendering: pixelated;
+	line-height: 12px;
+	border-width: 11px;
+	z-index: 1;
+	background-origin: content-box, padding-box;
+	background-clip: padding-box;
+	background-size: cover;
+	background-position: center;
+	background-repeat: repeat;
+	font-size: small;
+}
+
+.frame-header {
+	display: flex;
+	border: none;
+	flex-direction: column;
+	justify-content: center;
+	font-size: small;
+}
+
+.frame-body {
+	display: flex;
+	flex: 1;
+	border: none;
+	flex-direction: column;
+	justify-content: center;
+	font-size: small;
+	min-width: 120px;
+}
+
+.frame-footer {
+	display: flex;
+	border: none;
+	flex-direction: row;
+	justify-content: flex-end;
+	font-size: small;
+	padding: 8px;
+}
+
+.frame-content {
+	padding: 8px;
+}
+
+.frame-bg-light {
+	background-image: url('/content-light.png');
+}
+
+.frame-bg-dark {
+	background: url('/content-dark.png');
+	color: #fff7df;
+}
+
+.frame_1 {
+	border-image-source: url(/frame1.png);
+	border-image-slice: 318;
+	border-width: 8px;
+}
+
+.frame_2 {
+	border-image-source: url(/frame2.png);
+	border-image-slice: 313 309;
+	border-width: 8px;
+}
+
+.frame_3 {
+	border-image-source: url(/frame3.png);
+	border-image-slice: 344 269;
+	border-width: 13px 10px;
+}
+
+.frame_4 {
+	border-image-source: url(/frame4.png);
+	border-image-slice: 118 258;
+	border-width: 5px 8px;
+}
+
+.frame_5 {
+	border-image-source: url(/title-1.png);
+	border-image-slice: 118 258;
+	border-width: 5px 8px;
 }
 
 /* Fade in/out animation for periodic progress notification */
 @keyframes progressFade {
-  0% { opacity: 0; transform: translate(-50%, 8px); }
-  10% { opacity: 1; transform: translate(-50%, 0); }
-  90% { opacity: 1; transform: translate(-50%, -4px); }
-  100% { opacity: 0; transform: translate(-50%, -12px); }
+	0% {
+		opacity: 0;
+		transform: translate(-50%, 8px);
+	}
+	10% {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+	90% {
+		opacity: 1;
+		transform: translate(-50%, -4px);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -12px);
+	}
 }
 
 .progress-notification {
-  position: fixed;
-  bottom: 56px; /* a bit above bottom so it doesn't clash with footer */
-  left: 50%;
-  transform: translate(-50%, 0);
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  pointer-events: none;
-  opacity: 0;
-  animation: progressFade 1s linear forwards;
-  font-family: var(--font-oldwizard);
-  letter-spacing: 1px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	position: fixed;
+	bottom: 56px; /* a bit above bottom so it doesn't clash with footer */
+	left: 50%;
+	transform: translate(-50%, 0);
+	background: rgba(0, 0, 0, 0.6);
+	color: #fff;
+	padding: 4px 12px;
+	border-radius: 6px;
+	font-size: 14px;
+	pointer-events: none;
+	opacity: 0;
+	animation: progressFade 1s linear forwards;
+	font-family: var(--font-oldwizard);
+	letter-spacing: 1px;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+	font-size: small;
 }
 
 .app {
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+	width: 100vw;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	background-color: #091429;
 }
 
 .game {
-  display: grid;
-  grid-template-rows: 1fr auto 1fr;
-  grid-template-areas:
-    "header"
-    "content"
-    "footer";
+	display: grid;
+	grid-template-rows: 1fr auto 1fr;
+	grid-template-areas:
+		'header'
+		'content'
+		'footer';
 }
 
-.header  { grid-area: header; padding: 8px }
-.content { grid-area: content; }
-.footer  { grid-area: footer; display: flex; justify-content: center; align-items: center; padding: 0 8px; gap: 8px; }
+.header {
+	grid-area: header;
+	padding: 8px;
+}
+.content {
+	grid-area: content;
+}
+.footer {
+	grid-area: footer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 8px;
+	gap: 8px;
+}
 
 .grid-template-columns-3 {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.bg-cover-bottom{ background: center bottom / cover no-repeat url('/bg.png'); }
+.bg-cover-bottom {
+	background: center bottom / cover no-repeat url('/bg.png');
+}
 
-.bg-intro{ background: center / cover url('/bg1.png'); }
+.bg-intro {
+	background: center / cover url('/bg1.png');
+}
 
-.clock-bg{ background: center bottom / cover no-repeat url('/clock_bg.png'); }
+.clock-bg {
+	background: center bottom / cover no-repeat url('/clock_bg.png');
+}
 
 .glass {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 12px;
+	background: rgba(255, 255, 255, 0.02);
+	border-radius: 12px;
 
-  backdrop-filter: blur(22px) saturate(120%);
-  -webkit-backdrop-filter: blur(22px) saturate(120%);
+	backdrop-filter: blur(22px) saturate(120%);
+	-webkit-backdrop-filter: blur(22px) saturate(120%);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) inset 0 1px 0 rgba(255, 255, 255, 0.06);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .panels {
-  display: grid;
-  grid-template-rows: 1fr;
+	display: grid;
+	grid-template-rows: 1fr;
+}
+
+/* Generic full-screen overlay (backdrop for modals, dialogs, etc.) */
+.overlay {
+	position: fixed;
+	inset: 0; /* top:0 right:0 bottom:0 left:0 */
+	background: rgba(0, 0, 0, 0.35);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	/* subtle blur for glass aesthetic */
+	backdrop-filter: blur(4px) saturate(120%);
+	-webkit-backdrop-filter: blur(4px) saturate(120%);
+}
+
+.button-bar {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-image-source: url(/buttonbar.png);
+	border-image-slice: 409 329;
+	border-width: 16px;
+	border-image-repeat: repeat;
+	image-rendering: pixelated;
+	background-color: #d9b96a;
+	background-clip: padding-box;
+}
+
+.text-bg {
+	border-image-source: url(/text.png);
+	border-image-slice: 354 fill;
+	border-width: 17px;
+	border-image-repeat: repeat;
+
+	padding: 4px;
+
+	/* Help keep it crisp in most browsers */
+	image-rendering: pixelated;
+
+	/* Optional background behind the center area, if your center is semi-transparent */
+	color: #000000; /* text color that suits the style */
+
+	/* Ensure element has some intrinsic size so frame is visible even without content */
+	min-width: 20px;
+	min-height: 10px;
+}
+
+.title-wrapper {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-image-source: url(/title-1.png);
+	border-image-slice: 409 329;
+	border-width: 16px;
+	border-image-repeat: repeat;
+	image-rendering: pixelated;
+	background-color: #d9b96a;
+	background-clip: padding-box;
+	padding: 4px;
+	color: #000000;
+}
+
+.title-content {
+	position: relative;
+	z-index: 1;
+	text-align: center;
+	font-size: large;
+	line-height: 1.2;
+	height: 20px;
+}
+
+.title-bg {
 }
 
 .modal {
-  border-image-source: url(/bg1.png);
-  border-image-slice: 10% fill;
-  border-width: 8px;
-  border-image-repeat: stretch;
+	border-image-source: url(/modal.png);
+	border-image-slice: 30% fill;
+	border-width: 4px;
+	border-image-repeat: stretch;
 }
 
-.button-bg {
-  border-image-source: url(/button.png);
-  border-image-slice: 10% fill;
-  border-width: 8px;
-  border-image-repeat: stretch;
+.modal-bg {
+	display: flex;
+	flex-direction: column;
+	border-image-source: url(/modal-9slice.png);
+	border-image-slice: 280;
+	border-width: 10px;
+	border-image-repeat: repeat;
+	padding: 16px;
+	background-clip: padding-box;
+
+	/* Help keep it crisp in most browsers */
+	image-rendering: pixelated;
+
+	/* Optional background behind the center area, if your center is semi-transparent */
+	background-color: #1f1807; /* dark brown to match gold */
+	color: #fff3cf; /* text color that suits the style */
+
+	/* Ensure element has some intrinsic size so frame is visible even without content */
+	min-width: 160px;
+	min-height: 96px;
+}
+
+.modal-header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: medium;
+	text-align: center;
+	line-height: 1.2;
+	--ornament-x: 0;
+	--ornament-y: 0;
+	margin-top: 8px;
+}
+
+.modal-header::after {
+	content: '';
+	/* Render the ornament directly below the title text */
+	display: block;
+	position: relative; /* participate in normal flow under the title */
+	top: -2px;
+	margin-left: auto;
+	margin-right: auto; /* center under title */
+	/* Raw sheet metrics */
+	--total-height: 1024px;
+	--total-width: 1248px;
+	--columns: 2;
+	--rows: 7;
+	/* Per tile (unscaled) */
+	--tile-width: calc(var(--total-width) / var(--columns));
+	--tile-height: calc(var(--total-height) / var(--rows));
+	/* Scale factor to display (instead of transform so layout matches visual size) */
+	--scale: 0.12;
+	/* Scaled dimensions used for layout box */
+	--scaled-width: calc(var(--tile-width) * var(--scale));
+	--scaled-height: calc(var(--tile-height) * var(--scale));
+	width: var(--scaled-width);
+	height: var(--scaled-height);
+	background-image: url('/ornaments.png');
+	background-repeat: no-repeat;
+	/* Scale entire sheet so background positioning remains intuitive */
+	background-size: calc(var(--total-width) * var(--scale)) calc(var(--total-height) * var(--scale));
+	background-position: calc(var(--ornament-x) * var(--scaled-width) * -1)
+		calc(var(--ornament-y) * var(--scaled-height) * -1);
+	image-rendering: pixelated;
+}
+
+.button-9slice-wrapper {
+	display: inline-block;
+	position: relative;
+}
+
+.button-9slice {
+	border-image-source: url(/button-9slice.png);
+	border-image-slice: 208 199;
+	border-width: 9px;
+	border-image-repeat: stretch;
+	image-rendering: pixelated;
+	background-clip: padding-box;
+	line-height: 12px;
+	pointer-events: auto;
+	cursor: pointer;
+	position: unset;
+	background-color: #00334e;
+	background-clip: padding-box;
+}
+
+.button-9slice-content {
+	padding: 2px 6px;
+	text-align: center;
+	font-size: small;
+	user-select: none;
+	position: relative;
+	top: 2px;
+	color: #e8e8e8;
+	font-weight: 500;
+	z-index: 1;
 }
 
 .button {
-  cursor: pointer;
-  font-size: medium;
-  line-height: 0.8;
-  padding: 5px 5px;
+	cursor: pointer;
+	font-size: medium;
+	line-height: 0.8;
+	padding: 5px 5px;
 }
 
-.mi2-scribble{display:inline-block;width:64px;height:64px;background-image:url('/mi2_ui_scribbles.png');background-repeat:no-repeat;image-rendering: pixelated;background-size:320px 192px; opacity: 20%;}
-.mi2-scribble-0{background-position:0px 0px;}
-.mi2-scribble-1{background-position:-64px 0px;}
-.mi2-scribble-2{background-position:-128px 0px;}
-.mi2-scribble-3{background-position:-192px 0px;}
-.mi2-scribble-4{background-position:-256px 0px;}
-.mi2-scribble-5{background-position:0px -64px;}
-.mi2-scribble-6{background-position:-64px -64px;}
-.mi2-scribble-7{background-position:-128px -64px;}
-.mi2-scribble-8{background-position:-192px -64px;}
-.mi2-scribble-9{background-position:-256px -64px;}
-.mi2-scribble-10{background-position:0px -128px;}
-.mi2-scribble-11{background-position:-64px -128px;}
-.mi2-scribble-12{background-position:-128px -128px;}
-.mi2-scribble-13{background-position:-192px -128px;}
-.mi2-scribble-14{background-position:-256px -128px;}
+.input-bg {
+	border-image-source: url(/input.png);
+	border-image-slice: 20% fill;
+	border-width: 8px;
+	border-image-repeat: stretch;
+}
+
+/* Base class for all ornaments in the 512×256 sprite sheet */
+.ornament {
+	display: inline-block;
+	/* Raw sheet metrics */
+	--total-height: 1024px;
+	--total-width: 1248px;
+	--columns: 2;
+	--rows: 7;
+	/* Per tile (unscaled) */
+	--tile-width: calc(var(--total-width) / var(--columns));
+	--tile-height: calc(var(--total-height) / var(--rows));
+	/* Scale factor to display (instead of transform so layout matches visual size) */
+	--scale: 0.15;
+	/* Scaled dimensions used for layout box */
+	--scaled-width: calc(var(--tile-width) * var(--scale));
+	--scaled-height: calc(var(--tile-height) * var(--scale));
+	width: var(--scaled-width);
+	height: var(--scaled-height);
+	background-image: url('/ornaments.png');
+	background-repeat: no-repeat;
+	/* Select which ornament (0-based column/row indices) */
+	--ornament-x: 0;
+	--ornament-y: 0;
+	/* Scale entire sheet so background positioning remains intuitive */
+	background-size: calc(var(--total-width) * var(--scale)) calc(var(--total-height) * var(--scale));
+	background-position: calc(var(--ornament-x) * var(--scaled-width) * -1)
+		calc(var(--ornament-y) * var(--scaled-height) * -1);
+	image-rendering: pixelated;
+}
+
+.mi2-scribble {
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	background-image: url('/mi2_ui_scribbles.png');
+	background-repeat: no-repeat;
+	image-rendering: pixelated;
+	background-size: 320px 192px;
+	opacity: 20%;
+}
+.mi2-scribble-0 {
+	background-position: 0px 0px;
+}
+.mi2-scribble-1 {
+	background-position: -64px 0px;
+}
+.mi2-scribble-2 {
+	background-position: -128px 0px;
+}
+.mi2-scribble-3 {
+	background-position: -192px 0px;
+}
+.mi2-scribble-4 {
+	background-position: -256px 0px;
+}
+.mi2-scribble-5 {
+	background-position: 0px -64px;
+}
+.mi2-scribble-6 {
+	background-position: -64px -64px;
+}
+.mi2-scribble-7 {
+	background-position: -128px -64px;
+}
+.mi2-scribble-8 {
+	background-position: -192px -64px;
+}
+.mi2-scribble-9 {
+	background-position: -256px -64px;
+}
+.mi2-scribble-10 {
+	background-position: 0px -128px;
+}
+.mi2-scribble-11 {
+	background-position: -64px -128px;
+}
+.mi2-scribble-12 {
+	background-position: -128px -128px;
+}
+.mi2-scribble-13 {
+	background-position: -192px -128px;
+}
+.mi2-scribble-14 {
+	background-position: -256px -128px;
+}
