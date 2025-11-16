@@ -291,9 +291,6 @@ body {
 	height: 20px;
 }
 
-.title-bg {
-}
-
 .modal {
 	border-image-source: url(/modal.png);
 	border-image-slice: 30% fill;
@@ -331,12 +328,10 @@ body {
 	font-size: medium;
 	text-align: center;
 	line-height: 1.2;
-	--ornament-x: 0;
-	--ornament-y: 0;
-	margin-top: 8px;
+	margin-top: 4px;
 }
 
-.modal-header::after {
+.modal-header-disabled::after {
 	content: '';
 	/* Render the ornament directly below the title text */
 	display: block;
