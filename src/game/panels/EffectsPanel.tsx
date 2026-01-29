@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useGameData } from '../GameData';
 import { ABILITY_DEFS, type AbilityDef } from '../utils/abilities';
-import { Modal } from '../modals/Modal';
+import { Modal } from '../../components/Modal';
 
 interface Contribution {
 	def: AbilityDef;

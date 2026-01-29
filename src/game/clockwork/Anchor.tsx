@@ -1,6 +1,7 @@
 import React from 'react';
 import { Escapement } from './Escapement';
 import { Clockwork } from './Clockwork';
+import SvgUtils from '../../utils/SvgUtils';
 
 interface AnchorProps {
 	escapement: Escapement;
@@ -38,8 +39,7 @@ export const Anchor: React.FC<AnchorProps> = ({
 
 	const rectPoints = (angle: number) => {
 		// Center point on circle
-		const cx = centerX + Math.cos(angle) * r;
-		const cy = centerY + Math.sin(angle) * r;
+		const { x: cx, y: cy } = SvgUtils.polarToCartesian(centerX, centerY, r, angle);
 		// Tangent vector
 		const tx = -Math.sin(angle);
 		const ty = Math.cos(angle);
@@ -76,10 +76,8 @@ export const Anchor: React.FC<AnchorProps> = ({
 		const startRad = (startDeg * Math.PI) / 180;
 		const endRad = (endDeg * Math.PI) / 180;
 		const arcR = wheel.radius + 4; // slightly outside wheel
-		const sx = centerX + arcR * Math.cos(startRad);
-		const sy = centerY + arcR * Math.sin(startRad);
-		const ex = centerX + arcR * Math.cos(endRad);
-		const ey = centerY + arcR * Math.sin(endRad);
+		const { x: sx, y: sy } = SvgUtils.polarToCartesian(centerX, centerY, arcR, startRad);
+		const { x: ex, y: ey } = SvgUtils.polarToCartesian(centerX, centerY, arcR, endRad);
 		const large = 0;
 		toothArc = (
 			<path
@@ -99,10 +97,8 @@ export const Anchor: React.FC<AnchorProps> = ({
 				const rSwing = r * 1.05;
 				const start = ((-swing / 2) * Math.PI) / 180;
 				const end = ((swing / 2) * Math.PI) / 180;
-				const sx = centerX + rSwing * Math.cos(start);
-				const sy = centerY + rSwing * Math.sin(start);
-				const ex = centerX + rSwing * Math.cos(end);
-				const ey = centerY + rSwing * Math.sin(end);
+				const { x: sx, y: sy } = SvgUtils.polarToCartesian(centerX, centerY, rSwing, start);
+				const { x: ex, y: ey } = SvgUtils.polarToCartesian(centerX, centerY, rSwing, end);
 				return (
 					<path
 						d={`M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${rSwing} ${rSwing} 0 0 1 ${ex.toFixed(2)} ${ey.toFixed(2)}`}
@@ -117,8 +113,7 @@ export const Anchor: React.FC<AnchorProps> = ({
 			{/* Anchor arm (centerline) */}
 			{(() => {
 				const a = (anchorAngle * Math.PI) / 180;
-				const ax = centerX + r * 0.7 * Math.cos(a);
-				const ay = centerY + r * 0.7 * Math.sin(a);
+				const { x: ax, y: ay } = SvgUtils.polarToCartesian(centerX, centerY, r * 0.7, a);
 				return <line x1={centerX} y1={centerY} x2={ax} y2={ay} stroke="#444" strokeWidth={1} />;
 			})()}
 
@@ -134,8 +129,7 @@ export const Anchor: React.FC<AnchorProps> = ({
 				const rGuide = r * 1.2;
 				return angles.map((deg, i) => {
 					const rad = (deg * Math.PI) / 180;
-					const gx = centerX + rGuide * Math.cos(rad);
-					const gy = centerY + rGuide * Math.sin(rad);
+					const { x: gx, y: gy } = SvgUtils.polarToCartesian(centerX, centerY, rGuide, rad);
 					return (
 						<line
 							key={i}
@@ -157,8 +151,7 @@ export const Anchor: React.FC<AnchorProps> = ({
 				const rFace = r * 0.9;
 				return faces.map((deg, i) => {
 					const rad = (deg * Math.PI) / 180;
-					const fx = centerX + rFace * Math.cos(rad);
-					const fy = centerY + rFace * Math.sin(rad);
+					const { x: fx, y: fy } = SvgUtils.polarToCartesian(centerX, centerY, rFace, rad);
 					return (
 						<circle
 							key={i}

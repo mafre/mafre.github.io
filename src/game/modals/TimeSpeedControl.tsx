@@ -1,9 +1,8 @@
-import { ButtonBar } from '../components/ButtonBar';
+import { ButtonBar } from '../../components/ButtonBar';
 import { GameButton } from '../components/GameButton';
-import Ornament from '../components/Ornament';
-import { Text } from '../components/Text';
+import { Text } from '../../components/Text';
 import { useGameData } from '../GameData';
-import { Modal } from './Modal';
+import { Modal } from '../../components/Modal';
 
 export default function TimeSpeedControl() {
 	const { data, update } = useGameData();

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Modal } from '../modals/Modal';
+import { Modal } from './Modal';
 
 export interface DialogProps {
 	open?: boolean; // default true if omitted for legacy use
@@ -59,9 +59,11 @@ export function Dialog({
 
 	return (
 		<div ref={backdropRef} className="overlay" onMouseDown={handleBackdrop}>
-			<Modal title={title} footer={footer}>
-				{children}
-			</Modal>
+			<div ref={containerRef} className="dialog-container">
+				<Modal title={title} footer={footer}>
+					{children}
+				</Modal>
+			</div>
 		</div>
 	);
 }

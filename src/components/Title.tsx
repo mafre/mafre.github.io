@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import type { OrnamentCSSVars } from '../types/ornament';
+import type { OrnamentCSSVars } from '../game/types/ornament';
 import { Frame } from './Frame';
 
 export interface TitleProps {

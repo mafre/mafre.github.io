@@ -1,6 +1,6 @@
-import IntervalRender from '../../time/IntervalRender';
+import IntervalRender from '../time/IntervalRender';
 import { useRef, useState } from 'react';
-import { useGameData } from '../GameData';
+import { useGameData } from '../game/GameData';
 
 /**
  * Progress: shows a transient notification each second containing the delta of resources gained

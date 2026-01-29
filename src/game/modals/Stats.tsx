@@ -1,6 +1,6 @@
 import IntervalRender from '../../time/IntervalRender';
 import { useGameData } from '../GameData';
-import { Modal } from './Modal';
+import { Modal } from '../../components/Modal';
 
 export default function Stats() {
 	const { data } = useGameData();

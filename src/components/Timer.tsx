@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { GameData, useGameData } from '../GameData';
-import useTimer from '../utils/useTimer';
+import { GameData, useGameData } from '../game/GameData';
+import useTimer from '../game/utils/useTimer';
 
 export default function Timer() {
 	const { update, data } = useGameData();

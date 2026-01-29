@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { GameButton } from '../components/GameButton';
-import { NumericInput } from '../components/NumericInput';
-import { Dialog } from './Dialog';
+import { NumericInput } from '../../components/NumericInput';
+import { Dialog } from '../../components/Dialog';
 
-export interface NumericCreateModalProps {
+export interface CreateGearProps {
 	open: boolean;
 	title?: string;
 	min?: number;
@@ -18,7 +18,7 @@ export interface NumericCreateModalProps {
  * Simple modal with a numeric input and a Create button.
  * Renders inline (no portal) with a backdrop. Accessible focus trap for first input.
  */
-const NumericCreateDialog: React.FC<NumericCreateModalProps> = ({
+const CreateGear: React.FC<CreateGearProps> = ({
 	open,
 	title = 'Create',
 	min,
@@ -70,4 +70,4 @@ const NumericCreateDialog: React.FC<NumericCreateModalProps> = ({
 
 // Old inline styles removed; layout handled by generic Modal component.
 
-export default NumericCreateDialog;
+export default CreateGear;

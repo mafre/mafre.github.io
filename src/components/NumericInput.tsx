@@ -18,7 +18,7 @@ export const NumericInput: React.FC<{
 				<input
 					ref={inputRef}
 					type="number"
-					value={value}
+					value={Number.isNaN(value) ? '' : value}
 					min={min}
 					max={max}
 					step={step}

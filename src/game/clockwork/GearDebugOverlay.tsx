@@ -1,5 +1,6 @@
 import React from 'react';
 import { Clockwork } from './Clockwork';
+// import SvgUtils from './SvgUtils';
 
 export const GearDebugOverlay: React.FC<{ cw: Clockwork; centerX?: number; centerY?: number }> = ({
 	cw,

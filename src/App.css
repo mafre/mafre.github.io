@@ -1,10 +1,47 @@
+/* Global UI scale.
+ *
+ * Goal: scale the whole UI while keeping it centered and avoiding scrollbars.
+ *
+ * Strategy:
+ * - Keep the viewport as the clip region (#root is 100vw/100vh and overflow hidden).
+ * - Render the app at 1/scale size, then scale it up with a transform.
+ *   This preserves the “fit to viewport” behavior while making everything larger.
+ */
+:root {
+	--ui-scale: 1;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+#root {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* App is the first child of #root (see App.tsx). */
+#root > .app {
+	width: calc(100vw / var(--ui-scale));
+	height: calc(100vh / var(--ui-scale));
+	transform: scale(var(--ui-scale));
+	transform-origin: center;
+}
+
 body {
 	color-scheme: dark;
 	--font-oldwizard: 'Old Wizard', monospace;
 	font-family: var(--font-oldwizard);
 	font-size: x-large;
 	color: #000000;
-	scale: 1;
 }
 
 .frame-wrapper {
@@ -159,12 +196,12 @@ body {
 	height: 100vh;
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	background-color: #091429;
+	background-color: #040914;
 }
 
 .game {
 	display: grid;
-	grid-template-rows: 1fr auto 1fr;
+	grid-template-rows: 40px auto 1fr;
 	grid-template-areas:
 		'header'
 		'content'
@@ -173,7 +210,6 @@ body {
 
 .header {
 	grid-area: header;
-	padding: 8px;
 }
 .content {
 	grid-area: content;
@@ -228,9 +264,32 @@ body {
 	align-items: center;
 	justify-content: center;
 	z-index: 1000;
+	padding: calc(12px / var(--ui-scale));
+	box-sizing: border-box;
 	/* subtle blur for glass aesthetic */
 	backdrop-filter: blur(4px) saturate(120%);
 	-webkit-backdrop-filter: blur(4px) saturate(120%);
+}
+
+/* Dialog sizing + scrolling: keep header/footer visible, scroll body only. */
+.dialog-container {
+	/*
+	 * The app is globally scaled using transform: scale(var(--ui-scale)).
+	 * Viewport units (vh/vw) are not affected by that transform, so we divide
+	 * by --ui-scale to keep dialog sizing correct visually.
+	 */
+	max-height: calc(80vh / var(--ui-scale));
+	max-width: min(calc(90vw / var(--ui-scale)), calc(520px / var(--ui-scale)));
+	width: 100%;
+}
+
+.dialog-container .frame-content {
+	max-height: calc(80vh / var(--ui-scale));
+}
+
+.dialog-container .frame-body {
+	overflow-y: auto;
+	justify-content: flex-start;
 }
 
 .button-bar {
@@ -289,9 +348,6 @@ body {
 	font-size: large;
 	line-height: 1.2;
 	height: 20px;
-}
-
-.title-bg {
 }
 
 .modal {

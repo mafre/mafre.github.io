@@ -1,31 +1,63 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { GameButton } from './game/components/GameButton';
-import NumericCreateModal from './game/dialogs/NumericCreateDialog';
+import CreateGearDialog from './game/dialogs/CreateGear';
+import EditGearDialog from './game/dialogs/EditGear';
+import GameClockwork from './game/clockwork/GameClockwork';
+import Container from './components/Container';
+import GameClockworkModel from './game/clockwork/GameClockworkModel';
 
 export default function Game() {
 	const [modalOpen, setModalOpen] = useState(false);
-	const [, setCreatedValue] = useState<number | null>(null);
+	const [editingGearId, setEditingGearId] = useState<string | null>(null);
+	const [escapementOn, setEscapementOn] = useState(true);
+	const gameClockworkModel = useMemo(() => new GameClockworkModel(), []);
 
 	const handleCreate = (v: number) => {
-		setCreatedValue(v);
-		// Placeholder for downstream usage; could dispatch event or update game state.
-		console.log('Created numeric value:', v);
+		gameClockworkModel.createGear(v);
 	};
 
 	return (
 		<div className="game">
-			<div className="header"></div>
+			<div className="header">
+				<GameButton onClick={() => setModalOpen(true)}>Add gear</GameButton>
+				<GameButton
+					onClick={() => {
+						setEscapementOn((v) => {
+							const next = !v;
+							gameClockworkModel.setEscapementEnabled(next);
+							return next;
+						});
+					}}
+				>
+					Escapement: {escapementOn ? 'On' : 'Off'}
+				</GameButton>
+			</div>
 			<div className="content">
-				<GameButton onClick={() => setModalOpen(true)}>Gears</GameButton>
-				<NumericCreateModal
+				<CreateGearDialog
 					open={modalOpen}
-					title="Create gears"
+					title="Gear properties"
 					min={8}
 					max={20}
-					initialValue={8}
+					initialValue={12}
 					onCreate={handleCreate}
 					onClose={() => setModalOpen(false)}
 				/>
+				<EditGearDialog
+					open={editingGearId != null}
+					gear={editingGearId ? (gameClockworkModel.model.getGear(editingGearId) ?? null) : null}
+					onSave={(updates) => {
+						if (!editingGearId) return;
+						gameClockworkModel.updateGear(editingGearId, updates);
+					}}
+					onClose={() => setEditingGearId(null)}
+				/>
+				<Container svgWidth={150} svgHeight={150}>
+					<GameClockwork
+						model={gameClockworkModel}
+						selectedGearId={editingGearId}
+						onSelectGear={(gearId) => setEditingGearId(gearId)}
+					/>
+				</Container>
 			</div>
 			<div className="footer" />
 		</div>

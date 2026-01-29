@@ -1,6 +1,6 @@
 import { GameButton } from '../components/GameButton';
 import { useGameData } from '../GameData';
-import { Modal } from '../modals/Modal';
+import { Modal } from '../../components/Modal';
 import { ABILITY_DEFS, type AbilityDef } from '../utils/abilities';
 
 interface AbilityRowProps {

@@ -1,4 +1,5 @@
 import React from 'react';
+import SvgUtils from '../../utils/SvgUtils';
 
 export default class Gear {
 	id: string;
@@ -98,21 +99,16 @@ export default class Gear {
 		// angle offsets from tooth centerline (tip-leading edge direction)
 		// root is wider than tip for visual effect
 
-		const polar = (r: number, a: number) => ({
-			x: cx + r * Math.cos(a),
-			y: cy + r * Math.sin(a),
-		});
-
 		const polys: React.ReactNode[] = [];
 		const tipHalf = (θ * toothTopRatio) / 2;
 		const rootHalf = (θ * toothRootRatio) / 2;
 
 		for (let i = 0; i < teeth; i++) {
 			const a = i * θ + rot;
-			const p1 = polar(rootR, a - rootHalf);
-			const p2 = polar(tipR, a - tipHalf);
-			const p3 = polar(tipR, a + tipHalf);
-			const p4 = polar(rootR, a + rootHalf);
+			const p1 = SvgUtils.polarToCartesian(cx, cy, rootR, a - rootHalf);
+			const p2 = SvgUtils.polarToCartesian(cx, cy, tipR, a - tipHalf);
+			const p3 = SvgUtils.polarToCartesian(cx, cy, tipR, a + tipHalf);
+			const p4 = SvgUtils.polarToCartesian(cx, cy, rootR, a + rootHalf);
 
 			polys.push(
 				<polygon
@@ -185,10 +181,10 @@ export default class Gear {
 						{/* Directly render mask shapes with fill='white' */}
 						{Array.from({ length: teeth }, (_, i) => {
 							const a = i * θ + rot;
-							const p1 = polar(rootR, a - rootHalf);
-							const p2 = polar(tipR, a - tipHalf);
-							const p3 = polar(tipR, a + tipHalf);
-							const p4 = polar(rootR, a + rootHalf);
+							const p1 = SvgUtils.polarToCartesian(cx, cy, rootR, a - rootHalf);
+							const p2 = SvgUtils.polarToCartesian(cx, cy, tipR, a - tipHalf);
+							const p3 = SvgUtils.polarToCartesian(cx, cy, tipR, a + tipHalf);
+							const p4 = SvgUtils.polarToCartesian(cx, cy, rootR, a + rootHalf);
 							return (
 								<polygon
 									key={i}
