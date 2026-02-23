@@ -31,6 +31,13 @@ export class Clockwork {
 		return Array.from(this.gears.values());
 	}
 
+	/** Return connections for a gear with direction normalized so `a` is the source gear */
+	getConnections(id: string): Connection[] {
+		return this.connections
+			.filter((c) => c.a === id || c.b === id)
+			.map((c) => (c.a === id ? c : { a: c.b, b: c.a, type: c.type, backlash: c.backlash }));
+	}
+
 	generateGear(options: {
 		id: string;
 		ratio?: number;
@@ -44,6 +51,7 @@ export class Clockwork {
 		toothTopRatio?: number;
 		toothDepth?: number;
 	}): Gear {
+		console.log(options.radius)
 		const ratio =
 			options.ratio ??
 			(options.baseTeeth && options.teethCount
@@ -306,10 +314,19 @@ export class Clockwork {
 			stroke?: string;
 			fill?: string;
 			strokeWidth?: number;
+			onGearPointerDown?: (id: string, e: React.PointerEvent) => void;
+			onGearPointerMove?: (id: string, e: React.PointerEvent) => void;
+			onGearPointerUp?: (id: string, e: React.PointerEvent) => void;
+			activeDraggedId?: string;
+			highlightId?: string; // gear id to outline
+			highlightStroke?: string;
+			highlightStrokeWidth?: number;
+			highlightDasharray?: string;
+			highlightPadding?: number; // extra px outside gear radius
 		} = {}
 	): React.ReactNode {
-		const cx = opts.centerX ?? 200,
-			cy = opts.centerY ?? 200;
+		const cx = opts.centerX ?? 0,
+			cy = opts.centerY ?? 0;
 		const stroke = opts.stroke ?? '#222';
 		const fill = opts.fill ?? 'none';
 		const sw = opts.strokeWidth ?? 1;
@@ -335,7 +352,13 @@ export class Clockwork {
 				toothRootRatio: g.toothRootRatio ?? 0.8,
 				className: `gear gear-${g.id}`,
 			});
-			return React.cloneElement(el, { key: g.id });
+			return React.cloneElement(el as React.ReactElement<any>, {
+				key: g.id,
+				onPointerDown: (e: React.PointerEvent) => opts.onGearPointerDown?.(g.id, e),
+				onPointerMove: (e: React.PointerEvent) => opts.onGearPointerMove?.(g.id, e),
+				onPointerUp: (e: React.PointerEvent) => opts.onGearPointerUp?.(g.id, e),
+				style: { cursor: opts.activeDraggedId === g.id ? 'grabbing' : 'grab' },
+			});
 		});
 
 		if (opts.drawAxles) {
@@ -347,7 +370,29 @@ export class Clockwork {
 			}
 		}
 
-		return <>{parts}</>;
+		// Optional highlight outline for a nearby gear (e.g. when dragging)
+		const overlays: React.ReactNode[] = [];
+		if (opts.highlightId) {
+			const hg = this.gears.get(opts.highlightId);
+			if (hg) {
+				const pad = opts.highlightPadding ?? 4;
+				overlays.push(
+					<circle
+						key={`highlight-${hg.id}`}
+						cx={cx + hg.x}
+						cy={cy + hg.y}
+						r={hg.radius + pad}
+						fill="none"
+						stroke={opts.highlightStroke ?? '#ff6'}
+						strokeWidth={opts.highlightStrokeWidth ?? Math.max(1, sw * 1.5)}
+						strokeDasharray={opts.highlightDasharray ?? '4,4'}
+						pointerEvents="none"
+					/>
+				);
+			}
+		}
+
+		return <>{parts}{overlays}</>;
 	}
 
 	/**

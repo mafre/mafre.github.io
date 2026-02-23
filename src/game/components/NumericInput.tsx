@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import { Frame } from './Frame';
 
 export const NumericInput: React.FC<{
 	value: number;
@@ -13,19 +12,15 @@ export const NumericInput: React.FC<{
 }> = ({ value, onChange, min, max, step = 1, styles = {} }) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	return (
-		<Frame
-			body={
-				<input
-					ref={inputRef}
-					type="number"
-					value={value}
-					min={min}
-					max={max}
-					step={step}
-					onChange={(e) => setValue(e.target.value === '' ? NaN : parseFloat(e.target.value))}
-					style={styles.input}
-				/>
-			}
+		<input
+			ref={inputRef}
+			type="number"
+			value={value}
+			min={min}
+			max={max}
+			step={step}
+			onChange={(e) => setValue(e.target.value === '' ? NaN : parseFloat(e.target.value))}
+			style={styles.input}
 		/>
 	);
 

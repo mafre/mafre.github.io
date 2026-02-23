@@ -11,22 +11,20 @@ export default function Stats() {
 				const entries = Object.entries(data.resources);
 				return (
 					<Modal title="Player Stats">
-						<div className="frame-content">
-							<div>Level: {data.level}</div>
-							{entries.length === 0 && <span className="italic">No resources yet</span>}
-							{entries.map(([k]) => {
-								const total = data.totals?.[k];
-								return (
-									<div key={k} className="flex flex-col gap-0.5 py-0.5">
-										<div className="flex items-center gap-2">
-											<span>
-												{k}: {total}
-											</span>
-										</div>
+						<div>Level: {data.level}</div>
+						{entries.length === 0 && <span className="italic">No resources yet</span>}
+						{entries.map(([k]) => {
+							const total = data.totals?.[k];
+							return (
+								<div key={k} className="flex flex-col gap-0.5 py-0.5">
+									<div className="flex items-center gap-2">
+										<span>
+											{k}: {total}
+										</span>
 									</div>
-								);
-							})}
-						</div>
+								</div>
+							);
+						})}
 					</Modal>
 				);
 			}}

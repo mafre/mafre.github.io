@@ -9,7 +9,7 @@ interface Contribution {
 	add: number;
 }
 
-export default function EffectsPanel() {
+export default function Effects() {
 	const { data } = useGameData();
 
 	const { contributions, abilityBonus, effective } = useMemo(() => {

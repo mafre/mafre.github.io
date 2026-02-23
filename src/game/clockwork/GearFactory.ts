@@ -90,7 +90,9 @@ export default class GearFactory {
   ) {
     // Caller should have created idMaster (or pass desired options). We simply create the coaxial companion.
     const axle = opts.axleId ?? idMaster;
-    const radius = Math.max(8, teethCoax * pitch);
+    const radius = Math.min(50, teethCoax * pitch);
+
+    console.log(radius)
 
     cw.generateGear({
       id: idCoax,
@@ -167,9 +169,9 @@ export default class GearFactory {
     newTeeth: number,
     opts: CoaxialOptions = {}
   ) {
-    const pitch = 1;
-    const radiusMaster = Math.max(8, masterTeeth * pitch);
-    const radiusNew = Math.max(8, newTeeth * pitch);
+    const pitch = 2.5;
+    const radiusMaster = Math.min(40, masterTeeth * pitch);
+    const radiusNew = Math.min(40, newTeeth * pitch);
     const axle = opts.axleId ?? masterId;
 
     if (!cw.getGear(masterId)) {

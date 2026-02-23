@@ -71,8 +71,8 @@ export default class Gear {
 			cx,
 			cy,
 			radius = 50,
-			toothDepth = radius * 0.18,
-			teeth = this.teeth ?? 60,
+			toothDepth = 8,
+			teeth = this.teeth ?? 20,
 			boreRadius = 10,
 			stroke = 'currentColor',
 			fill = '#000',
@@ -81,7 +81,7 @@ export default class Gear {
 			id,
 			showPitch = false,
 			pitchRadius,
-			toothTopRatio = 0.4,
+			toothTopRatio = 0.2,
 			toothRootRatio = 0.8,
 		} = opts;
 
@@ -157,7 +157,7 @@ export default class Gear {
 		};
 
 		return (
-			<g filter="url(#shadow)">
+			<g>
 				<defs>
 					{/* Use userSpaceOnUse and enlarge filter region to avoid clipping of shadows */}
 					<filter

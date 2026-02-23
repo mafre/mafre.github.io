@@ -35,7 +35,7 @@ function AbilityRow({ def, owned, active, canPurchase, onPurchase }: AbilityRowP
 	);
 }
 
-export default function AbilitiesPanel() {
+export default function Abilities() {
 	const { data, update } = useGameData();
 
 	return (

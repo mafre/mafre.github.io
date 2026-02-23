@@ -9,7 +9,8 @@ export interface ModalProps extends FrameProps {
 }
 
 export function Modal({ title, children, footer }: ModalProps) {
-	return <Frame header={<Title>{title}</Title>} body={children} footer={footer} />;
+	return <Frame header={<Title>{title}</Title>} body={
+		<div className="modal-wrapper">{children}</div>} footer={footer} />;
 }
 
 export function SimpleModal({ title, children }: Omit<ModalProps, 'footer'>) {
