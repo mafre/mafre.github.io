@@ -1,14 +1,14 @@
-import { computeMoonPhase } from "../../geo/ephemeris/getMoonPhase";
-import type { IntervalRenderInfo } from "../IntervalRender";
+import { computeMoonPhase } from '../geo/ephemeris/getMoonPhase';
+import type { IntervalRenderInfo } from './IntervalRender';
 
 export default function MoonPhase(props: IntervalRenderInfo) {
-  const { now } = props;
+	const { now } = props;
 	const moonPhaseInfo = computeMoonPhase(now);
 	const { phaseFraction } = moonPhaseInfo;
 	const R = 22;
 	const p = phaseFraction;
 	const waxing = p <= 0.5;
-	const k = (p <= 0.5 ? p * 2 : (1 - p) * 2);
+	const k = p <= 0.5 ? p * 2 : (1 - p) * 2;
 	const innerRx = Math.max(0.0001, k) * R;
 
 	function litPath(): string {
@@ -27,11 +27,5 @@ export default function MoonPhase(props: IntervalRenderInfo) {
 
 	const pathD = litPath();
 
-	return (
-		<g>
-			{pathD && (
-				<path d={pathD} fill="#e64a19" />
-			)}
-				</g>
-		);
+	return <g>{pathD && <path d={pathD} fill="#e64a19" />}</g>;
 }
