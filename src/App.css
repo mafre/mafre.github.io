@@ -1,10 +1,32 @@
 @layer theme, base, components, utilities;
 
+.inter-base {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+  font-size: small;
+}
+
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --surface: #f2f2f2;
+  --accent: #3b82f6;;
+}
+
+[data-theme="dark"] {
+  --bg: #121212;
+  --text: #e5e5e5;
+  --surface: #1e1e1e;
+  --accent: #60a5fa;
+}
+
 /* Custom font: Old Wizard */
 @font-face {
 	font-family: 'Old Wizard';
 	src: url('/OldWizard.ttf') format('truetype');
-	font-weight: 400;
+	font-weight: 200;
 	font-style: normal;
 	font-display: swap;
 }
@@ -78,13 +100,27 @@
 	}
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
-	color-scheme: dark;
 	--font-oldwizard: 'Old Wizard', monospace;
-	font-family: var(--font-oldwizard);
-	font-size: x-large;
-	color: #000000;
+	--font-inter: 'Inter', sans-serif;
+  	background: var(--bg);
+  	color: var(--text);
 	scale: 1;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .frame-wrapper {
@@ -255,6 +291,7 @@ body {
 .content {
 	grid-area: content;
 }
+
 .footer {
 	grid-area: footer;
 	display: flex;

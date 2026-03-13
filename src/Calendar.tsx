@@ -18,6 +18,9 @@ export default function Calendar() {
 		isToday: boolean;
 	}
 
+	const date = new Date();
+	const currentWeekDay = date.getDay();
+
 	const isoWeek = (d: Date) => {
 		const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
 		const dayNum = (date.getUTCDay() + 6) % 7;
@@ -108,9 +111,12 @@ export default function Calendar() {
 				<div key={month.number} className="month">
 					<div className={`monthHeader${month.isCurrent ? ' highlight' : ''}`}>{month.name}</div>
 					<div className="week weekHeader">
-						<div className="weekNumber"></div>
+						<div className="weekNumber">V</div>
 						{['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
-							<div key={i} className="day dayName">
+							<div
+								key={i}
+								className={`day dayName ${month.isCurrent && i === currentWeekDay - 1 ? ' highlight' : ''}`}
+							>
 								{d}
 							</div>
 						))}
