@@ -3,10 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/clock.png" sizes="any" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Time</title>
-    <script type="module" crossorigin src="/assets/index-3LMHTIOs.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-qxkNpoCn.css">
+    <script>
+      const saved = localStorage.getItem("theme");
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const theme = saved || (systemDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    </script>
+    <script type="module" crossorigin src="/assets/index-DWjyxSce.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BkMmFAfY.css">
   </head>
   <body>
     <div id="root"></div>
