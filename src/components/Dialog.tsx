@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Modal } from '../modals/Modal';
+import { Modal } from './Modal';
 
 export interface DialogProps {
 	open?: boolean; // default true if omitted for legacy use
