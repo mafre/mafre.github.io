@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import nameDayData from './svenska-namnsdagar.json';
 
 export default function Calendar() {
@@ -28,7 +28,7 @@ export default function Calendar() {
 	const date = new Date();
 	const currentWeekDay = date.getDay();
 	const [selectionStart, setSelectionStart] = useState<Date | null>(null);
-	const [selectionEnd, setSelectionEnd] = useState<Date | null>(null);
+	const [selectionEnd] = useState<Date | null>(null);
 	const [layout, setLayout] = useState<'grid' | 'list'>('grid');
 	const swedishNameDayIndex: Record<string, NameDayEntry> = {};
 	(nameDayData.days as NameDayEntry[] | undefined)?.forEach((entry) => {
@@ -65,19 +65,10 @@ export default function Calendar() {
 	};
 
 	const handleDayClick = (clickedDate: Date) => {
-		if (!selectionStart || (selectionStart && selectionEnd)) {
+		if (selectionStart && isSameDay(clickedDate, selectionStart)) {
+			setSelectionStart(null);
+		} else {
 			setSelectionStart(clickedDate);
-			setSelectionEnd(null);
-			return;
-		}
-
-		if (selectionStart && !selectionEnd) {
-			if (isSameDay(clickedDate, selectionStart)) {
-				setSelectionStart(null);
-				setSelectionEnd(null);
-			} else {
-				setSelectionEnd(clickedDate);
-			}
 		}
 	};
 
@@ -95,30 +86,25 @@ export default function Calendar() {
 		});
 	};
 
-	const rangeDays = (start: Date, end: Date) => {
-		const startMs = normalizeDate(start).getTime();
-		const endMs = normalizeDate(end).getTime();
-		const days = Math.ceil(Math.abs(endMs - startMs) / (1000 * 60 * 60 * 24)) + 1;
-		return `${days} day${days === 1 ? '' : 's'}`;
+	const getDayDetails = (value: Date) => {
+		return `${formatDayName(value)}, ${formatDate(value)} ${getSwedishNameDay(value) ? ` — ${getSwedishNameDay(value)}` : ''}`;
 	};
 
-	const selectedDateText = selectionStart
-		? selectionEnd
-			? `${formatDate(selectionStart)} – ${formatDate(selectionEnd)} (${rangeDays(selectionStart, selectionEnd)})`
-			: layout === 'list'
-				? `${formatDate(selectionStart)}`
-				: `${formatDate(selectionStart)} - ${getSwedishNameDay(selectionStart)}`
-		: 'Select a date or range';
-
+	const selectedDateText = selectionStart ? getDayDetails(selectionStart) : '';
 	const todayRowRef = useRef<HTMLDivElement | null>(null);
-	const todayNameDay = getSwedishNameDay(date);
-	const todayDetails = `${formatDayName(date)}, ${formatDate(date)}${todayNameDay ? ` — ${todayNameDay}` : ''}`;
+	const todayDetails = `${getDayDetails(date)}`;
 
 	const scrollToToday = () => {
 		if (layout === 'list' && todayRowRef.current) {
-			todayRowRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			todayRowRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
 		}
 	};
+
+	useEffect(() => {
+		if (layout === 'list' && todayRowRef.current) {
+			todayRowRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
+		}
+	}, [layout]);
 
 	const isoWeek = (d: Date) => {
 		const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -226,16 +212,12 @@ export default function Calendar() {
 					{selectionStart ? selectedDateText : todayDetails}
 				</div>
 				<div className="calendarControls">
-					<label className="calendarControlLabel">
-						Layout:
-						<select
-							value={layout}
-							onChange={(event) => setLayout(event.target.value as 'grid' | 'list')}
-						>
-							<option value="grid">Grid</option>
-							<option value="list">List</option>
-						</select>
-					</label>
+					<button className="calendarControlButton" onClick={() => setLayout('grid')}>
+						Grid
+					</button>
+					<button className="calendarControlButton" onClick={() => setLayout('list')}>
+						List
+					</button>
 				</div>
 			</div>
 			{months.map((month) => (
