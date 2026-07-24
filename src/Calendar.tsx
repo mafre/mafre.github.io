@@ -95,14 +95,14 @@ export default function Calendar() {
 	const todayDetails = `${getDayDetails(date)}`;
 
 	const scrollToToday = () => {
-		if (layout === 'list' && todayRowRef.current) {
-			todayRowRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
+		if (todayRowRef.current) {
+			todayRowRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
 		}
 	};
 
 	useEffect(() => {
-		if (layout === 'list' && todayRowRef.current) {
-			todayRowRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
+		if (todayRowRef.current) {
+			todayRowRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
 		}
 	}, [layout]);
 
@@ -293,6 +293,7 @@ export default function Calendar() {
 											<div
 												key={day.date.toISOString()}
 												className={classes}
+												ref={day.isToday ? todayRowRef : undefined}
 												onClick={() => handleDayClick(day.date)}
 											>
 												{day.dayNumber}
