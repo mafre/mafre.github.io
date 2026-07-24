@@ -15,6 +15,38 @@
   padding: 1rem;
 }
 
+.calendar.list {
+  grid-template-columns: 1fr;
+}
+
+.calendarHeader {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.calendarControls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.calendarControlLabel {
+  font-size: 0.85rem;
+  color: #ffffff;
+}
+
+.calendarControlLabel select {
+  margin-left: 0.4rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
 .calendarToday,
 .calendarRange {
   grid-column: 1 / -1;
@@ -26,6 +58,7 @@
 
 .calendarToday {
   font-weight: 600;
+  cursor: pointer;
 }
 
 .calendarRangeLabel {
@@ -97,6 +130,55 @@
   grid-template-columns: repeat(8, minmax(0, 1fr));
   align-items: center;
   column-gap: 0.4rem;
+}
+
+.calendar.list .month {
+  width: 100%;
+}
+
+.calendar.list .monthHeader {
+  text-align: left;
+}
+
+.calendar.list .week {
+  display: block;
+}
+
+.calendar.list .weekHeader,
+.calendar.list .weekNumber {
+  display: none;
+}
+
+.calendar.list .monthDays {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.calendar.list .day {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.calendar.list .dayLabel {
+  min-width: 2rem;
+  font-weight: 700;
+}
+
+.calendar.list .dayNameDay {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+}
+
+.calendar.list .day.emptyDay {
+  display: none;
 }
 
 .day.highlight {
