@@ -20,6 +20,76 @@ export default function Calendar() {
 
 	const date = new Date();
 	const currentWeekDay = date.getDay();
+	const [selectionStart, setSelectionStart] = useState<Date | null>(null);
+	const [selectionEnd, setSelectionEnd] = useState<Date | null>(null);
+
+	const normalizeDate = (value: Date) => {
+		const normalized = new Date(value);
+		normalized.setHours(0, 0, 0, 0);
+		return normalized;
+	};
+
+	const isSameDay = (a: Date, b: Date) => normalizeDate(a).getTime() === normalizeDate(b).getTime();
+
+	const isInSelectionRange = (day: Date) => {
+		if (!selectionStart || !selectionEnd) return false;
+		const start = normalizeDate(selectionStart).getTime();
+		const end = normalizeDate(selectionEnd).getTime();
+		const value = normalizeDate(day).getTime();
+		return value >= Math.min(start, end) && value <= Math.max(start, end);
+	};
+
+	const handleDayClick = (clickedDate: Date) => {
+		if (!selectionStart || (selectionStart && selectionEnd)) {
+			setSelectionStart(clickedDate);
+			setSelectionEnd(null);
+			return;
+		}
+
+		if (selectionStart && !selectionEnd) {
+			if (isSameDay(clickedDate, selectionStart)) {
+				setSelectionStart(null);
+				setSelectionEnd(null);
+			} else {
+				setSelectionEnd(clickedDate);
+			}
+		}
+	};
+
+	const formatDate = (value: Date) => {
+		return value.toLocaleDateString(undefined, {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+		});
+	};
+
+	const formatDayName = (value: Date) => {
+		return value.toLocaleDateString(undefined, {
+			weekday: 'long',
+		});
+	};
+
+	const todayDetails = `${formatDayName(date)}, ${formatDate(date)}`;
+
+	const rangeDays = (start: Date, end: Date) => {
+		const startMs = normalizeDate(start).getTime();
+		const endMs = normalizeDate(end).getTime();
+		const days = Math.ceil(Math.abs(endMs - startMs) / (1000 * 60 * 60 * 24)) + 1;
+		return `${days} day${days === 1 ? '' : 's'}`;
+	};
+
+	const selectedDateText = selectionStart
+		? selectionEnd
+			? `${formatDate(selectionStart)} – ${formatDate(selectionEnd)} (${rangeDays(selectionStart, selectionEnd)})`
+			: formatDate(selectionStart)
+		: 'Select a date or range';
+
+	const selectedDateLabel = selectionStart
+		? selectionEnd
+			? 'Selected range:'
+			: 'Selected date:'
+		: '';
 
 	const isoWeek = (d: Date) => {
 		const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -107,6 +177,10 @@ export default function Calendar() {
 
 	return (
 		<div className="calendar">
+			<div className="calendarToday">{todayDetails}</div>
+			<div className="calendarRange">
+				<span className="calendarRangeLabel">{selectedDateLabel}</span> {selectedDateText}
+			</div>
 			{months.map((month) => (
 				<div key={month.number} className="month">
 					<div className={`monthHeader${month.isCurrent ? ' highlight' : ''}`}>{month.name}</div>
@@ -124,18 +198,33 @@ export default function Calendar() {
 					{month.weeks.map((week) => (
 						<div key={week.number} className={`week${week.isCurrent ? ' highlight' : ''}`}>
 							<div className={`weekNumber${week.isCurrent ? ' highlight' : ''}`}>{week.number}</div>
-							{week.days.map((day, idx) =>
-								day ? (
+							{week.days.map((day, idx) => {
+								if (!day) {
+									return <div key={'empty-' + week.number + '-' + idx} className="day emptyDay" />;
+								}
+
+								const isStart = selectionStart && isSameDay(day.date, selectionStart);
+								const isEnd = selectionEnd && isSameDay(day.date, selectionEnd);
+								const inRange = isInSelectionRange(day.date) && !isStart && !isEnd;
+								const classes = [
+									'day',
+									day.isToday ? 'highlight' : null,
+									inRange ? 'range' : null,
+									isStart || isEnd ? 'selected rangeBoundary' : null,
+								]
+									.filter(Boolean)
+									.join(' ');
+
+								return (
 									<div
 										key={day.date.toISOString()}
-										className={`day${day.isToday ? ' highlight' : ''}`}
+										className={classes}
+										onClick={() => handleDayClick(day.date)}
 									>
 										{day.dayNumber}
 									</div>
-								) : (
-									<div key={'empty-' + week.number + '-' + idx} className="day emptyDay" />
-								)
-							)}
+								);
+							})}
 						</div>
 					))}
 				</div>
