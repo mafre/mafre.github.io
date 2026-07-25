@@ -22,7 +22,7 @@
 .calendarHeader {
   grid-column: 1 / -1;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
   position: sticky;
@@ -30,6 +30,7 @@
   z-index: 10;
   background: var(--bg);
   padding: 1rem 1.25rem 0.85rem;
+  width: 100%;
 }
 
 .calendarControls {
@@ -248,7 +249,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #717171;
+  color: #FFFFFF;
 }
 
 .weekNumber.highlight {

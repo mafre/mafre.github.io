@@ -61,6 +61,34 @@
 		font-family: 'Press Start 2P', ui-monospace, monospace;
 	}
 
+	.page-nav {
+		@apply rounded-3xl border border-slate-300/70 bg-slate-50/80 p-4 shadow-lg shadow-slate-900/5 backdrop-blur-sm dark:border-slate-800/70 dark:bg-slate-950/55;
+	}
+
+	.page-nav-header {
+		@apply mb-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between;
+	}
+
+	.page-nav-title {
+		@apply text-xs font-semibold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400;
+	}
+
+	.page-nav-links {
+		@apply flex flex-wrap items-center gap-2;
+	}
+
+	.nav-link {
+		@apply inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-700 transition duration-200 ease-out bg-white/90 shadow-sm shadow-slate-900/5 outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 dark:bg-slate-900/80 dark:text-slate-200;
+	}
+
+	.nav-link:hover {
+		@apply bg-slate-100 dark:bg-slate-800;
+	}
+
+	.nav-link-active {
+		@apply bg-slate-900 text-white shadow-xl shadow-slate-900/20 dark:bg-sky-500 dark:text-white dark:shadow-sky-500/20;
+	}
+
 	/* UTILITIES-ONLY @apply is OK */
 	.ui-button {
 		color: #000;

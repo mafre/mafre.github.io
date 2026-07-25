@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "analyze": "ANALYZE=true tsc -b && vite build",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -13,16 +14,15 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
-    "d3": "^7.9.0",
-    "intermock": "^0.2.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-router-dom": "^7.18.1",
     "suncalc": "^1.9.0",
-    "tailwindcss": "^4.1.13",
-    "topojson-client": "^3.1.0"
+    "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
     "@types/suncalc": "^1.9.2",
@@ -39,6 +39,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "prettier": "^3.6.2",
+    "rollup-plugin-visualizer": "^5.14.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import nameDayData from './svenska-namnsdagar.json';
 
 export default function Calendar() {
@@ -28,8 +28,7 @@ export default function Calendar() {
 	const date = new Date();
 	const currentWeekDay = date.getDay();
 	const [selectionStart, setSelectionStart] = useState<Date | null>(null);
-	const [selectionEnd] = useState<Date | null>(null);
-	const [layout, setLayout] = useState<'grid' | 'list'>('grid');
+	const selectionEnd: Date | null = null;
 	const swedishNameDayIndex: Record<string, NameDayEntry> = {};
 	(nameDayData.days as NameDayEntry[] | undefined)?.forEach((entry) => {
 		swedishNameDayIndex[entry.date] = entry;
@@ -100,12 +99,6 @@ export default function Calendar() {
 		}
 	};
 
-	useEffect(() => {
-		if (todayRowRef.current) {
-			todayRowRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
-		}
-	}, [layout]);
-
 	const isoWeek = (d: Date) => {
 		const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
 		const dayNum = (date.getUTCDay() + 6) % 7;
@@ -141,6 +134,7 @@ export default function Calendar() {
 		const monthList: Month[] = [];
 		const year = currentDate.getFullYear();
 		const today = new Date();
+
 		today.setHours(0, 0, 0, 0);
 
 		for (let m = 0; m < 12; m++) {
@@ -187,123 +181,69 @@ export default function Calendar() {
 		return monthList;
 	}
 
-	const flattenMonthDays = (month: Month) => {
-		return month.weeks.flatMap((week) => week.days).filter((day): day is Day => Boolean(day));
-	};
-
 	const [currentDate] = useState(new Date());
 	const months = monthsWeeksDays(currentDate);
 
 	return (
-		<div className={`calendar ${layout}`}>
+		<div className={`calendar grid`}>
 			<div className="calendarHeader">
-				<div
-					className="calendarToday"
-					role="button"
-					tabIndex={0}
-					onClick={scrollToToday}
-					onKeyDown={(event) => {
-						if (event.key === 'Enter' || event.key === ' ') {
-							event.preventDefault();
-							scrollToToday();
-						}
-					}}
-				>
+				<div className="calendarToday" role="button" tabIndex={0} onClick={scrollToToday}>
 					{selectionStart ? selectedDateText : todayDetails}
-				</div>
-				<div className="calendarControls">
-					<button className="calendarControlButton" onClick={() => setLayout('grid')}>
-						Grid
-					</button>
-					<button className="calendarControlButton" onClick={() => setLayout('list')}>
-						List
-					</button>
 				</div>
 			</div>
 			{months.map((month) => (
 				<div key={month.number} className="month">
 					<div className={`monthHeader${month.isCurrent ? ' highlight' : ''}`}>{month.name}</div>
-					{layout === 'list' ? (
-						<div className="monthDays">
-							{flattenMonthDays(month).map((day) => {
-								const isStart = selectionStart && isSameDay(day.date, selectionStart);
-								const isEnd = selectionEnd && isSameDay(day.date, selectionEnd);
-								const inRange = isInSelectionRange(day.date) && !isStart && !isEnd;
-								const classes = [
-									'day',
-									day.isToday ? 'highlight' : null,
-									inRange ? 'range' : null,
-									isStart || isEnd ? 'selected rangeBoundary' : null,
-								]
-									.filter(Boolean)
-									.join(' ');
-								const nameDayText = getSwedishNameDay(day.date);
-
-								return (
-									<div
-										key={day.date.toISOString()}
-										className={classes}
-										ref={day.isToday ? todayRowRef : undefined}
-										onClick={() => handleDayClick(day.date)}
-									>
-										<span className="dayLabel">{day.dayNumber}</span>
-										{nameDayText ? <span className="dayNameDay">{nameDayText}</span> : null}
-									</div>
-								);
-							})}
-						</div>
-					) : (
-						<>
-							<div className="week weekHeader">
-								<div className="weekNumber">V</div>
-								{['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
-									<div
-										key={i}
-										className={`day dayName ${month.isCurrent && i === currentWeekDay - 1 ? ' highlight' : ''}`}
-									>
-										{d}
-									</div>
-								))}
-							</div>
-							{month.weeks.map((week) => (
-								<div key={week.number} className={`week${week.isCurrent ? ' highlight' : ''}`}>
-									<div className={`weekNumber${week.isCurrent ? ' highlight' : ''}`}>
-										{week.number}
-									</div>
-									{week.days.map((day, idx) => {
-										if (!day) {
-											return (
-												<div key={'empty-' + week.number + '-' + idx} className="day emptyDay" />
-											);
-										}
-
-										const isStart = selectionStart && isSameDay(day.date, selectionStart);
-										const isEnd = selectionEnd && isSameDay(day.date, selectionEnd);
-										const inRange = isInSelectionRange(day.date) && !isStart && !isEnd;
-										const classes = [
-											'day',
-											day.isToday ? 'highlight' : null,
-											inRange ? 'range' : null,
-											isStart || isEnd ? 'selected rangeBoundary' : null,
-										]
-											.filter(Boolean)
-											.join(' ');
-
-										return (
-											<div
-												key={day.date.toISOString()}
-												className={classes}
-												ref={day.isToday ? todayRowRef : undefined}
-												onClick={() => handleDayClick(day.date)}
-											>
-												{day.dayNumber}
-											</div>
-										);
-									})}
+					<>
+						<div className="week weekHeader">
+							<div className="weekNumber"> </div>
+							{['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
+								<div
+									key={i}
+									className={`day dayName ${month.isCurrent && i === currentWeekDay - 1 ? ' highlight' : ''}`}
+								>
+									{d}
 								</div>
 							))}
-						</>
-					)}
+						</div>
+						{month.weeks.map((week) => (
+							<div key={week.number} className={`week${week.isCurrent ? ' highlight' : ''}`}>
+								<div className={`weekNumber${week.isCurrent ? ' highlight' : ''}`}>
+									{week.number}
+								</div>
+								{week.days.map((day, idx) => {
+									if (!day) {
+										return (
+											<div key={'empty-' + week.number + '-' + idx} className="day emptyDay" />
+										);
+									}
+
+									const isStart = selectionStart && isSameDay(day.date, selectionStart);
+									const isEnd = selectionEnd && isSameDay(day.date, selectionEnd);
+									const inRange = isInSelectionRange(day.date) && !isStart && !isEnd;
+									const classes = [
+										'day',
+										day.isToday ? 'highlight' : null,
+										inRange ? 'range' : null,
+										isStart || isEnd ? 'selected rangeBoundary' : null,
+									]
+										.filter(Boolean)
+										.join(' ');
+
+									return (
+										<div
+											key={day.date.toISOString()}
+											className={classes}
+											ref={day.isToday ? todayRowRef : undefined}
+											onClick={() => handleDayClick(day.date)}
+										>
+											{day.dayNumber}
+										</div>
+									);
+								})}
+							</div>
+						))}
+					</>
 				</div>
 			))}
 		</div>
