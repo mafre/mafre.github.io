@@ -35,6 +35,9 @@
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
+/* Tie Tailwind's dark: variant to the data-theme attribute instead of prefers-color-scheme */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @layer components {
 	/* COMPONENTS: plain CSS, no @apply of custom classes */
 	.ui-parchment {
@@ -62,7 +65,7 @@
 	}
 
 	.page-nav {
-		@apply rounded-3xl border border-slate-300/70 bg-slate-50/80 p-4 shadow-lg shadow-slate-900/5 backdrop-blur-sm dark:border-slate-800/70 dark:bg-slate-950/55;
+		@apply sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-3 backdrop-blur-sm dark:border-slate-800/70 dark:bg-slate-950/90;
 	}
 
 	.page-nav-header {
@@ -78,11 +81,11 @@
 	}
 
 	.nav-link {
-		@apply inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-700 transition duration-200 ease-out bg-white/90 shadow-sm shadow-slate-900/5 outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 dark:bg-slate-900/80 dark:text-slate-200;
+		@apply inline-flex items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-semibold text-slate-700 transition duration-200 ease-out bg-white shadow-sm shadow-slate-900/5 outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 dark:bg-slate-900/80 dark:text-slate-200;
 	}
 
 	.nav-link:hover {
-		@apply bg-slate-100 dark:bg-slate-800;
+		@apply bg-slate-800 text-white dark:bg-slate-700;
 	}
 
 	.nav-link-active {
@@ -144,8 +147,6 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  box-sizing: border-box;
 }
 
 .frame-wrapper {
