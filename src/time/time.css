@@ -80,7 +80,7 @@
 .calendarRange {
   grid-column: 1 / -1;
   font-size: 0.92rem;
-  color: #ffffff;
+  color: var(--text);
   text-align: center;
   padding: 0.75rem 1rem;
 }
@@ -93,13 +93,8 @@
 
 .calendarToday:hover,
 .calendarToday:focus-visible {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(128, 128, 128, 0.1);
   transform: translateY(-1px);
-}
-
-.calendarToday:focus-visible {
-  outline: 2px solid rgba(230, 74, 25, 0.55);
-  outline-offset: 3px;
 }
 
 .calendarRangeLabel {
@@ -162,7 +157,15 @@
 
 /* Month header + highlight styling for improved visibility */
 .monthHeader.highlight {
-  color: #e64a19;
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.15rem 0.5rem;
+}
+
+[data-theme="dark"] .monthHeader.highlight {
+  background: #fff;
+  color: #000;
 }
 
 /* Week row layout within each month */
@@ -224,7 +227,18 @@
 
 .day.highlight {
   color: #e64a19;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.day.highlight:not(.dayName) {
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+}
+
+[data-theme="dark"] .day.highlight:not(.dayName) {
+  background: #fff;
+  color: #000;
 }
 
 .day.range {
@@ -265,11 +279,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #FFFFFF;
+  color: var(--text);
+  font-size: 0.8em;
 }
 
 .weekNumber.highlight {
-  color: #e64a19;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+[data-theme="dark"] .weekNumber.highlight {
+  background: #fff;
+  color: #000;
 }
 
 .day {
@@ -284,12 +307,15 @@
   color: #717171;
 }
 
-.currentDay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #e64a19;
-  cursor: pointer;
+.day.dayName.highlight {
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+}
+
+[data-theme="dark"] .day.dayName.highlight {
+  background: #fff;
+  color: #000;
 }
 
 .currentWeekInfo {

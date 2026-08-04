@@ -25,9 +25,8 @@ export default function Calendar() {
 		observance?: string;
 	}
 
-	const date = new Date();
-	const currentWeekDay = date.getDay();
-	const [selectionStart, setSelectionStart] = useState<Date | null>(null);
+	const today = new Date();
+	const [selectionStart, setSelectionStart] = useState<Date | null>(today);
 	const selectionEnd: Date | null = null;
 	const swedishNameDayIndex: Record<string, NameDayEntry> = {};
 	(nameDayData.days as NameDayEntry[] | undefined)?.forEach((entry) => {
@@ -86,14 +85,16 @@ export default function Calendar() {
 	};
 
 	const getDayDetails = (value: Date) => {
-		return `${formatDayName(value)}, ${formatDate(value)} ${getSwedishNameDay(value) ? ` — ${getSwedishNameDay(value)}` : ''}`;
+		const week = isoWeek(value);
+		const nameDay = getSwedishNameDay(value);
+
+		return `w${week} ${formatDayName(value)} ${formatDate(value)}${nameDay ? ` — ${nameDay}` : ''}`;
 	};
 
-	const selectedDateText = selectionStart ? getDayDetails(selectionStart) : '';
 	const todayRowRef = useRef<HTMLDivElement | null>(null);
-	const todayDetails = `${getDayDetails(date)}`;
 
 	const scrollToToday = () => {
+		setSelectionStart(today);
 		if (todayRowRef.current) {
 			todayRowRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
 		}
@@ -184,31 +185,36 @@ export default function Calendar() {
 	const [currentDate] = useState(new Date());
 	const months = monthsWeeksDays(currentDate);
 
+	const activeDate = selectionStart ?? today;
+	const selectedMonth = activeDate.getMonth() + 1;
+	const selectedWeekNum = isoWeek(activeDate);
+	const selectedWeekDayIdx = (activeDate.getDay() + 6) % 7;
+
 	return (
 		<div className={`calendar grid`}>
 			<div className="calendarHeader">
 				<div className="calendarToday" role="button" tabIndex={0} onClick={scrollToToday}>
-					{selectionStart ? selectedDateText : todayDetails}
+					{getDayDetails(activeDate)}
 				</div>
 			</div>
 			{months.map((month) => (
 				<div key={month.number} className="month">
-					<div className={`monthHeader${month.isCurrent ? ' highlight' : ''}`}>{month.name}</div>
+					<div className={`monthHeader${month.number === selectedMonth ? ' highlight' : ''}`}>{month.name}</div>
 					<>
 						<div className="week weekHeader">
 							<div className="weekNumber"> </div>
 							{['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
 								<div
 									key={i}
-									className={`day dayName ${month.isCurrent && i === currentWeekDay - 1 ? ' highlight' : ''}`}
+									className={`day dayName${month.number === selectedMonth && i === selectedWeekDayIdx ? ' highlight' : ''}`}
 								>
 									{d}
 								</div>
 							))}
 						</div>
 						{month.weeks.map((week) => (
-							<div key={week.number} className={`week${week.isCurrent ? ' highlight' : ''}`}>
-								<div className={`weekNumber${week.isCurrent ? ' highlight' : ''}`}>
+						<div key={week.number} className={`week${week.number === selectedWeekNum ? ' highlight' : ''}`}>
+							<div className={`weekNumber${week.number === selectedWeekNum ? ' highlight' : ''}`}>
 									{week.number}
 								</div>
 								{week.days.map((day, idx) => {
@@ -218,12 +224,11 @@ export default function Calendar() {
 										);
 									}
 
-									const isStart = selectionStart && isSameDay(day.date, selectionStart);
-									const isEnd = selectionEnd && isSameDay(day.date, selectionEnd);
-									const inRange = isInSelectionRange(day.date) && !isStart && !isEnd;
-									const classes = [
-										'day',
-										day.isToday ? 'highlight' : null,
+										const isStart = isSameDay(day.date, activeDate);
+										const isEnd = selectionEnd && isSameDay(day.date, selectionEnd);
+										const inRange = isInSelectionRange(day.date) && !isStart && !isEnd;
+										const classes = [
+											'day',
 										inRange ? 'range' : null,
 										isStart || isEnd ? 'selected rangeBoundary' : null,
 									]

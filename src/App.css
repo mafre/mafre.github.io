@@ -3,7 +3,7 @@
 .inter-base {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 200;
+  font-weight: 400;
   font-style: normal;
   font-size: small;
 }
@@ -89,7 +89,7 @@
 	}
 
 	.nav-link-active {
-		@apply bg-slate-900 text-white shadow-xl shadow-slate-900/20 dark:bg-sky-500 dark:text-white dark:shadow-sky-500/20;
+		@apply bg-slate-900 text-white shadow-xl shadow-slate-900/20 dark:bg-slate-700 dark:text-white dark:shadow-slate-500/20;
 	}
 
 	/* UTILITIES-ONLY @apply is OK */

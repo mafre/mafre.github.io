@@ -28,7 +28,7 @@ export default function App() {
 							end
 							className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
 						>
-							Calendar
+							Kalender
 						</NavLink>
 						<NavLink
 							to="/namnsdagar"

@@ -70,7 +70,7 @@ export default function NamnsdagarPage() {
 					type="search"
 					value={query}
 					onChange={(event) => setQuery(event.target.value)}
-					placeholder="Date, name or observance"
+					placeholder="Dag eller namn"
 					className="mt-2 w-full rounded-2xl border border-slate-300/80 bg-slate-50 px-4 py-3 text-base text-slate-900 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
 				/>
 			</div>
