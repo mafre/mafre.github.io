@@ -1,14 +1,11 @@
-import { useState } from 'react';
-import { Clockwork } from './game/clockwork/Clockwork';
-import GameClockwork from './game/clockwork/GameClockwork';
-import GearFactory from './game/clockwork/GearFactory';
-import NumericCreateDialog from './game/dialogs/NumericCreateDialog';
+import Clock from './game/components/Clock';
 import Container from './time/Container';
 
 export default function Game() {
-	const [, setCreatedValue] = useState<number | null>(null);
-	const [clockwork] = useState(new Clockwork());
+	//const [, setCreatedValue] = useState<number | null>(null);
+	//const [clockwork] = useState(new Clockwork());
 
+	/*
 	const handleCreate = (v: number) => {
 		setCreatedValue(v);
 		// Try to attach the new coaxial gear to the last-added gear in the clockwork.
@@ -32,27 +29,15 @@ export default function Game() {
 			GearFactory.createExplicitCoaxial(clockwork, 'gear1', newId, 20, v, { layer: 1 });
 		}
 	};
+	*/
 
 	return (
-		<div className="app">
-			<div className="game">
+		<div className="game">
 				<div className="flex justify-center flex-col">
 					<Container svgWidth={200} svgHeight={200}>
-						<GameClockwork cw={clockwork} />
+						<Clock />
 					</Container>
 				</div>
-				<div className="footer">
-					<div className="flex flex-col">
-						<NumericCreateDialog
-							title="Create gears"
-							min={8}
-							max={20}
-							initialValue={8}
-							onCreate={handleCreate}
-						/>
-					</div>
-				</div>
 			</div>
-		</div>
 	);
 }

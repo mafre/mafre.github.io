@@ -204,6 +204,7 @@ body {
 	justify-content: center;
 	font-size: small;
 	min-width: 120px;
+	color: #000
 }
 
 .frame-footer {
@@ -294,16 +295,18 @@ body {
 }
 
 .app {
-	width: 100vw;
-	height: 100vh;
-	display: grid;
-	grid-template-columns: 1fr;
-	background-color: #091429;
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+}
+
+.app > * {
+	position: relative;
+	z-index: 1;
 }
 
 .game {
 	display: grid;
-	grid-template-rows: 200px auto 200px;
 	grid-template-areas:
 		'header'
 		'content'
@@ -332,8 +335,12 @@ body {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.bg-cover-bottom {
+.bg-cover-bottom::before {
+	content: "";
+	position: absolute;
+	inset: 0;
 	background: center bottom / cover no-repeat url('/bg.png');
+	z-index: 0;
 }
 
 .bg-intro {
@@ -363,14 +370,14 @@ body {
 .overlay {
 	position: fixed;
 	inset: 0; /* top:0 right:0 bottom:0 left:0 */
-	background: rgba(0, 0, 0, 0.35);
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	z-index: 1000;
 	/* subtle blur for glass aesthetic */
 	backdrop-filter: blur(4px) saturate(120%);
 	-webkit-backdrop-filter: blur(4px) saturate(120%);
+	padding-top: 64px; /* leave space for header */
 }
 
 .button-bar {
@@ -468,6 +475,7 @@ body {
 	--ornament-x: 0;
 	--ornament-y: 0;
 	margin-top: 8px;
+	color: #FFF;
 }
 
 .modal-header::after {

@@ -198,8 +198,8 @@ export default function Calendar() {
 				</div>
 			</div>
 			{months.map((month) => (
-				<div key={month.number} className="month">
-					<div className={`monthHeader${month.number === selectedMonth ? ' highlight' : ''}`}>{month.name}</div>
+				<div key={month.number} className={`month${month.number === selectedMonth ? ' highlight' : ''}`}>
+					<div className="monthHeader">{month.name}</div>
 					<>
 						<div className="week weekHeader">
 							<div className="weekNumber"> </div>

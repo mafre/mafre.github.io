@@ -6,6 +6,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
 const NamnsdagarPage = lazy(() => import('./pages/NamnsdagarPage'));
+const GamePage = lazy(() => import('./pages/GamePage'));
 
 export default function App() {
 	const [theme, setTheme] = useState<Theme>(getPreferredTheme);
@@ -36,6 +37,12 @@ export default function App() {
 						>
 							Namnsdagar
 						</NavLink>
+						<NavLink
+							to="/tid"
+							className={({ isActive }) => `nav-link ${isActive ? 'nav-link-active' : ''}`}
+						>
+							Tid
+						</NavLink>
 						<button
 							onClick={toggleTheme}
 							className="nav-link ml-auto"
@@ -51,6 +58,7 @@ export default function App() {
 						<Routes>
 							<Route path="/" element={<CalendarPage />} />
 							<Route path="/namnsdagar" element={<NamnsdagarPage />} />
+							<Route path="/tid" element={<GamePage />} />
 						</Routes>
 					</Suspense>
 				</main>

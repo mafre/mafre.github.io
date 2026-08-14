@@ -155,17 +155,21 @@
   margin-bottom: 0.4rem;
 }
 
-/* Month header + highlight styling for improved visibility */
-.monthHeader.highlight {
-  background: #000;
-  color: #fff;
-  border-radius: 8px;
-  padding: 0.15rem 0.5rem;
+/* Highlight the full active month instead of only the title */
+.month.highlight {
+  background: #f6f1e4;
+  border-radius: 12px;
+  padding: 0.5rem;
 }
 
-[data-theme="dark"] .monthHeader.highlight {
-  background: #fff;
-  color: #000;
+[data-theme="dark"] .month.highlight {
+  background: #2b261d;
+}
+
+.month.highlight .monthHeader {
+  color: inherit;
+  border-radius: 8px;
+  padding: 0.15rem 0.25rem;
 }
 
 /* Week row layout within each month */

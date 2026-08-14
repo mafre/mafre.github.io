@@ -10,7 +10,7 @@ export default function Stats() {
 			{() => {
 				const entries = Object.entries(data.resources);
 				return (
-					<Modal title="Player Stats">
+					<Modal title="Time Stats">
 						<div>Level: {data.level}</div>
 						{entries.length === 0 && <span className="italic">No resources yet</span>}
 						{entries.map(([k]) => {
